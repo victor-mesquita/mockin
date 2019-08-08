@@ -47,6 +47,10 @@ export default {
   },
   mounted() {
     this.$store.dispatch("user/getUsers");
+
+    this.$store.dispatch("global/setPage", {
+      pageName: "Massas"
+    });
   },
   methods: {
     fetchUsers: function fetchUsers() {
