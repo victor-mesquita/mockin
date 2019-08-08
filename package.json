@@ -22,7 +22,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "mockin",
+    "productName": "Mockin",
     "appId": "com.mockin.app",
     "directories": {
       "output": "build"

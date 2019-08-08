@@ -1,9 +1,9 @@
 <template>
-  <header class="font-sans w-full m-0">
+  <header class="font-sans w-full m-0  select-none" style="-webkit-app-region: drag">
     <div class="bg-white shadow">
       <div class="container mx-auto px-4 lg:px-20">
         <div class="flex items-center justify-between py-4">
-          <div class="h-15 text-purple-600 select-none">Mock-in ⏣</div>
+          <div class="h-15 text-purple-600">Mock-in ⏣</div>
 
           <div class="lg:px-6 xl:w-3/4 xl:px-12">
             <div class="relative">
