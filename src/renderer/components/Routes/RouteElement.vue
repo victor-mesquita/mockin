@@ -7,7 +7,7 @@
         >{{httpMethod}}</span>
         <span>{{path}}</span>
 
-        <router-link to="/route/21982098605">
+        <router-link :to="`/route/${routeId}`">
           <img class="cursor-pointer" src="../../assets/images/settings.svg" alt="Abrir rota" />
         </router-link>
       </div>
@@ -15,10 +15,11 @@
 
 <script>
 export default {
-  name: "UserElement",
+  name: "RouteElement",
   props: {
     httpMethod: String,
     path: String,
+    routeId: String
   }
 };
 </script>

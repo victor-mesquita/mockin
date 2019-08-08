@@ -15,7 +15,7 @@ export default new Router({
       redirect: '/',
     },
     {
-      path: '/user/:id',
+      path: '/routes/:userId',
       name: 'routes',
       component: require('@/components/Routes').default,
     },

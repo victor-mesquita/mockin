@@ -10,17 +10,54 @@
       <h2 class="text-2xl text-primary font-bold mb-8 text-center">Rotas</h2>
     </div>
 
-    <div class="flex flex-col mt-5">
-      <RouteElement httpMethod="POST" path="/usageConsumption/create"></RouteElement>
+    <h4
+      v-show="hasError"
+      v-on:click="fetchRoutes"
+      class="text-xl text-primary mb-8 text-center cursor-pointer"
+    >Falha ao recuperar rotas, Toque para atualizar!</h4>
+
+    <div v-show="!hasError">
+      <RouteLoading v-show="loading"></RouteLoading>
+
+      <div v-show="!loading" class="flex flex-col mt-5">
+        <RouteElement v-for="route in routes" :key="route.id" :routeId="route.id" :httpMethod="route.httpMethod" :path="route.path"></RouteElement>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import RouteElement from "./Routes/RouteElement";
+import RouteLoading from "./Routes/RouteLoading";
+
 export default {
   name: "Routes",
-  components: { RouteElement }
+  components: { RouteElement, RouteLoading },
+  computed: {
+    ...mapGetters({
+      routes: "route/routes",
+      loading: "route/fetching",
+      hasError: "route/hasError"
+    })
+  },
+  mounted() {
+    this.$store.dispatch("route/getRoutes", {
+      userId: this.$route.params.userId
+    });
+
+    this.$store.dispatch("global/setPage", {
+      pageName: "Rotas"
+    });
+  },
+  methods: {
+    fetchRoutes: function fetchRoutes() {
+      this.$store.dispatch("route/getRoutes", {
+        userId: this.$route.params.userId
+      });
+    }
+  }
 };
 </script>
 

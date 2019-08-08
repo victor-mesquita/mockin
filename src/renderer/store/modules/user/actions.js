@@ -1,11 +1,11 @@
 import { RepositoryFactory } from "../../../api/repositoryFactory";
-const UserFactory = RepositoryFactory.users;
+const UserFactory = RepositoryFactory.user;
 
 const getUsers = async context => {
   try {
     context.commit("FETCHING_USERS", true);
 
-    const response = await UserFactory.get();
+    const response = await UserFactory.list();
 
     context.commit("USERS_UPDATED", response.data);
     context.commit("FETCHING_USERS", false);

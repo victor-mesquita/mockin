@@ -2,7 +2,7 @@ import repository from "./repository";
 
 const resource = "/users/";
 export default {
-  get() {
+  list() {
     return repository.get(`${resource}`);
   },
 };
