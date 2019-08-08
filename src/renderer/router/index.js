@@ -22,7 +22,7 @@ export default new Router({
     {
       path: '/route/:id',
       name: 'route',
-      component: require('@/components/Route').default,
+      component: require('@/components/RouteForm').default,
     },
   ],
 });

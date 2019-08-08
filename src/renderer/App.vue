@@ -1,27 +1,27 @@
 <template>
   <div id="app">
     <AppHeader></AppHeader>
-     <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import AppHeader from './components/Header';
+import AppHeader from "./components/Header";
 
 export default {
-  name: 'mockin',
+  name: "mockin",
   components: {
-    AppHeader,
-  },
+    AppHeader
+  }
 };
 </script>
 
 <style>
-  @tailwind base;
+@tailwind base;
 
-  @tailwind components;
+@tailwind components;
 
-  @tailwind utilities;
+@tailwind utilities;
 
-  @import "~animate.css/animate.css"
+@import "~animate.css/animate.css";
 </style>
