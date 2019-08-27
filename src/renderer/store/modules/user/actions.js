@@ -7,7 +7,9 @@ const getUsers = async context => {
 
     const response = await UserFactory.list();
 
-    context.commit("USERS_UPDATED", response.data);
+    const { users } = response.data;
+
+    context.commit("USERS_UPDATED", users);
     context.commit("FETCHING_USERS", false);
   } catch (error) {
     context.commit("FETCHING_USERS", false);

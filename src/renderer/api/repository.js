@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseDomain = "http://demo1773516.mockable.io/";
+const baseDomain = "http://0.0.0.0:4000/";
 
 const baseURL = `${baseDomain}`;
 

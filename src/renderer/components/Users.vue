@@ -18,7 +18,7 @@
           v-for="user in users"
           :key="user.msisdn"
           :msisdn="user.msisdn"
-          :segment="user.segment | segment-filter"
+          :segment="user.segment.name"
           :plan="user.name"
         ></UserElement>
       </div>

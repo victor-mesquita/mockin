@@ -1,6 +1,6 @@
 import repository from "./repository";
 
-const resource = "/users/";
+const resource = "/user/";
 export default {
   list() {
     return repository.get(`${resource}`);
