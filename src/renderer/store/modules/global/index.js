@@ -5,6 +5,7 @@ import mutations from "./mutations";
 const state = {
   pageName: "",
   searchTerm: "",
+  hideSearch: false
 };
 
 export default {

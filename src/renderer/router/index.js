@@ -15,14 +15,29 @@ export default new Router({
       redirect: '/',
     },
     {
-      path: '/routes/:userId',
+      path: '/routes/',
       name: 'routes',
       component: require('@/components/Routes').default,
     },
     {
-      path: '/route/:id',
+      path: '/route/:id?',
       name: 'route',
       component: require('@/components/RouteForm').default,
+    },
+    {
+      path: '/kps-editor',
+      name: 'kpsEditor',
+      component: require('@/components/KpsEditor').default,
+    },
+    {
+      path: '/clone/',
+      name: 'cloneUser',
+      component: require('@/components/CloneUser').default,
+    },
+    {
+      path: '/user/:id?',
+      name: 'user',
+      component: require('@/components/UserForm').default,
     },
   ],
 });

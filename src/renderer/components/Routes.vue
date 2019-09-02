@@ -7,7 +7,16 @@
         <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para massas" />
       </router-link>
 
-      <h2 class="text-2xl text-primary font-bold mb-8 text-center">Rotas</h2>
+      <div class="flex mb-8 justify-center">
+        <router-link class="flex" :to="`/route/`">
+          <img
+            class="mr-2 w-5 cursor-pointer"
+            src="../assets/images/circle-plus.svg"
+            alt="Adicionar rota"
+          />
+        </router-link>
+        <h2 class="text-2xl text-primary font-bold">Rotas</h2>
+      </div>
     </div>
 
     <h4
@@ -16,11 +25,22 @@
       class="text-xl text-primary mb-8 text-center cursor-pointer"
     >Falha ao recuperar rotas, Toque para atualizar!</h4>
 
+    <h4
+      v-show="noRouteResult && !hasError"
+      class="text-xl text-primary mb-8 text-center"
+    >Nenhuma rota encontrada!</h4>
+
     <div v-show="!hasError">
       <RouteLoading v-show="loading"></RouteLoading>
 
       <div v-show="!loading" class="flex flex-col mt-5">
-        <RouteElement v-for="route in routes" :key="route.id" :routeId="route.id" :httpMethod="route.httpMethod" :path="route.path"></RouteElement>
+        <RouteElement
+          v-for="route in filteredRoutes"
+          :key="route.id"
+          :routeId="route.id"
+          :httpMethod="route.httpMethod"
+          :path="route.path"
+        ></RouteElement>
       </div>
     </div>
   </div>
@@ -39,8 +59,15 @@ export default {
     ...mapGetters({
       routes: "route/routes",
       loading: "route/fetching",
-      hasError: "route/hasError"
-    })
+      hasError: "route/hasError",
+      searchTerm: "global/searchTerm"
+    }),
+    filteredRoutes: function filteredRoutes() {
+      return this.routes.filter(route => route.path.includes(this.searchTerm));
+    },
+    noRouteResult: function noRouteResult() {
+      return this.filteredRoutes.length === 0;
+    }
   },
   mounted() {
     this.$store.dispatch("route/getRoutes", {

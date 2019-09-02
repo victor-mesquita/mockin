@@ -2,20 +2,14 @@
   <header class="font-sans w-full m-0 select-none" style="-webkit-app-region: drag">
     <div class="bg-white shadow">
       <div class="container mx-auto px-4 lg:px-20">
-        <div class="flex items-center justify-between py-4">
-          <div class="h-15 text-purple-600">Mock-in ⏣</div>
+        <div class="flex items-center justify-between py-4 h-20">
+          <router-link class="h-15 text-purple-600 cursor-pointer" to="/">Mock-in ⏣</router-link>
 
-          <div class="lg:px-6 xl:w-3/4 sm:w-1/2 xl:px-12">
+          <div v-show="hideSearch == false" class="lg:px-6 sm:w-1/2">
             <Search @onSearch="onSearch" :pageName="pageName"></Search>
           </div>
 
-          <div class="hidden sm:flex items-center">
-            <a href="#" class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4">Home</a>
-            <a
-              href="#"
-              class="text-gray-800 text-sm font-semibold hover:text-purple-600 mr-4"
-            >Clonar massa</a>
-          </div>
+          <Menu :items="menus"></Menu>
         </div>
       </div>
     </div>
@@ -25,20 +19,32 @@
 <script>
 import { mapGetters } from "vuex";
 import Search from "./Header/Search";
+import Menu from "./Header/Menu";
 
 export default {
   name: "app-header",
   components: {
-    Search
+    Search,
+    Menu
+  },
+  data: function headerData() {
+    return {
+      menus: [
+        { name: "Home", link: "/" },
+        { name: "Clonar massa", link: "/clone" },
+        { name: "Editor KPS", link: "/kps-editor" }
+      ]
+    };
   },
   computed: {
     ...mapGetters({
-      pageName: "global/pageName"
+      pageName: "global/pageName",
+      hideSearch: "global/hideSearch"
     })
   },
   methods: {
     onSearch: function onSearch(value) {
-      this.$store.dispatch('global/doSearch', { searchTerm: value });
+      this.$store.dispatch("global/doSearch", { searchTerm: value });
     }
   }
 };

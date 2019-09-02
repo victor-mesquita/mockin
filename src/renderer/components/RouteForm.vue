@@ -3,8 +3,8 @@
     class="conteiner mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
   >
     <div>
-      <router-link to="/user/123121">
-        <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para massas" />
+      <router-link to="/routes/">
+        <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para rotas" />
       </router-link>
 
       <h2 class="text-2xl text-primary font-bold mb-8 text-center">POST /usageConsumption/create/</h2>
@@ -15,7 +15,7 @@
         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
           <label
             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            for="route-status">Status code</label>
+            for="route-status">Http Method</label>
           <div class="relative">
             <select
               class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

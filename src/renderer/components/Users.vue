@@ -2,7 +2,16 @@
   <div
     class="conteiner mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
   >
-    <h2 class="text-2xl text-primary font-bold mb-8 text-center">Massas</h2>
+    <div class="flex mb-8 justify-center">
+      <router-link class="flex" :to="`/user/`">
+        <img
+          class="mr-2 w-5 cursor-pointer"
+          src="../assets/images/circle-plus.svg"
+          alt="Adicionar massa"
+        />
+      </router-link>
+      <h2 class="text-2xl text-primary font-bold">Massas</h2>
+    </div>
 
     <h4
       v-show="hasError"
@@ -10,12 +19,17 @@
       class="text-xl text-primary mb-8 text-center cursor-pointer"
     >Falha ao recuperar massas, Toque para atualizar!</h4>
 
+    <h4
+      v-show="noRouteResult && !hasError"
+      class="text-xl text-primary mb-8 text-center"
+    >Nenhum usuário encontrado!</h4>
+
     <div v-show="!hasError">
       <UserLoading v-show="loading"></UserLoading>
 
       <div v-show="!loading" class="flex flex-col lg:flex-row lg:flex-wrap mt-5">
         <UserElement
-          v-for="user in users"
+          v-for="user in filteredUsers"
           :key="user.msisdn"
           :msisdn="user.msisdn"
           :segment="user.segment.name"
@@ -42,8 +56,15 @@ export default {
     ...mapGetters({
       users: "user/users",
       loading: "user/fetching",
-      hasError: "user/hasError"
-    })
+      hasError: "user/hasError",
+      searchTerm: "global/searchTerm"
+    }),
+    filteredUsers: function filteredUsers() {
+      return this.users.filter(user => user.msisdn.includes(this.searchTerm));
+    },
+    noRouteResult: function noRouteResult() {
+      return this.filteredUsers.length === 0;
+    }
   },
   mounted() {
     this.$store.dispatch("user/getUsers");

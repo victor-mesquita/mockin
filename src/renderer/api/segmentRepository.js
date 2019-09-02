@@ -1,12 +1,8 @@
 import repository from "./repository";
 
-const resource = "/user/";
+const resource = "/segment/";
 export default {
   list() {
     return repository.get(`${resource}`);
   },
-
-  create(user) {
-    return repository.post(`${resource}`, { user });
-  }
 };

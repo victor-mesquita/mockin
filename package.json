@@ -65,6 +65,8 @@
     "vue-content-loading": "^1.6.0",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
+    "vue-toasted": "^1.1.27",
+    "vuelidate": "^0.7.4",
     "vuex": "^3.0.1",
     "vuex-electron": "^1.0.0"
   },

@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
+import Vuelidate from 'vuelidate';
+import Toasted from 'vue-toasted';
 
 import './assets/styles/main.scss';
 
@@ -13,6 +15,9 @@ import filters from './filters';
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.http = Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
+
+Vue.use(Vuelidate);
+Vue.use(Toasted);
 
 /* eslint-disable no-new */
 new Vue({

@@ -11,7 +11,7 @@
       <span class="ml-1 text-sm text-gray-600">{{plan}}</span>
     </div>
 
-    <router-link :to="`/routes/${msisdn}`">
+    <router-link :to="`/routes/`">
       <img class="cursor-pointer" src="../../assets/images/send.svg" alt="Abrir massa" />
     </router-link>
   </div>

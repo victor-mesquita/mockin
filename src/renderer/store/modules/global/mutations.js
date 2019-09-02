@@ -6,7 +6,12 @@ const GLOBAL_SEARCH_TERM = (state, searchTerm) => {
   state.searchTerm = searchTerm;
 };
 
+const GLOBAL_HIDE_SEARCH = (state, hideSearch) => {
+  state.hideSearch = hideSearch;
+};
+
 export default {
   GLOBAL_PAGE,
-  GLOBAL_SEARCH_TERM
+  GLOBAL_SEARCH_TERM,
+  GLOBAL_HIDE_SEARCH
 };
