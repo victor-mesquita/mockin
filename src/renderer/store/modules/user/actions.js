@@ -1,3 +1,4 @@
+import Vue from "vue";
 import { RepositoryFactory } from "../../../api/repositoryFactory";
 const UserFactory = RepositoryFactory.user;
 
@@ -27,9 +28,13 @@ const createUser = async (context, payload) => {
 
     context.commit("USER_CREATED", user);
     context.commit("FETCHING", false);
+
+    Vue.toasted.success("Usuário criado com sucesso!").goAway(1500);
   } catch (error) {
     context.commit("FETCHING", false);
     context.commit("FETCHING_FAILED", true);
+
+    Vue.toasted.error("Falha ao criar usuário").goAway(1500);
   }
 };
 

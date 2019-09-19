@@ -10,8 +10,13 @@ const GLOBAL_HIDE_SEARCH = (state, hideSearch) => {
   state.hideSearch = hideSearch;
 };
 
+const HTTP_METHODS = (state, httpMethods) => {
+  state.httpMethods = httpMethods;
+};
+
 export default {
   GLOBAL_PAGE,
   GLOBAL_SEARCH_TERM,
-  GLOBAL_HIDE_SEARCH
+  GLOBAL_HIDE_SEARCH,
+  HTTP_METHODS
 };

@@ -1,9 +1,11 @@
 const routes = state => state.routes;
 const fetching = state => state.fetching;
 const hasError = state => state.hasError;
+const didCreateRoute = state => state.didCreateRoute;
 
 export default {
   routes,
   fetching,
-  hasError
+  hasError,
+  didCreateRoute
 };

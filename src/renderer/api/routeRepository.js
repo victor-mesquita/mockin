@@ -8,5 +8,8 @@ export default {
   },
   list() {
     return repository.get(`${routeResource}`);
+  },
+  create(route) {
+    return repository.post(`${routeResource}`, { route });
   }
 };

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import Vuelidate from 'vuelidate';
 import Toasted from 'vue-toasted';
+import VueTheMask from 'vue-the-mask';
 
 import './assets/styles/main.scss';
 
@@ -18,6 +19,7 @@ Vue.config.productionTip = false;
 
 Vue.use(Vuelidate);
 Vue.use(Toasted);
+Vue.use(VueTheMask);
 
 /* eslint-disable no-new */
 new Vue({

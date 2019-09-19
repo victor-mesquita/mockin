@@ -5,7 +5,8 @@ import mutations from "./mutations";
 const state = {
   routes: [],
   fetching: false,
-  hasError: false
+  hasError: false,
+  didCreateRoute: false
 };
 
 export default {

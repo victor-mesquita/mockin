@@ -16,8 +16,8 @@
           <Select
             class="md:w-1/3 px-3 mb-6"
             label="Segmento"
-            id-name="id"
-            value-name="name"
+            id-property="id"
+            value-property="name"
             :data="segments"
             :model.sync="user.segmentId"
             :disabled="segments.length === 0"
@@ -27,8 +27,8 @@
           <Select
             class="md:w-1/3 px-3 mb-6"
             label="Sub Segmento"
-            id-name="id"
-            value-name="name"
+            id-property="id"
+            value-property="name"
             :data="subSegments"
             :model.sync="user.subsegmentId"
             v-show="subSegments.length > 0"
@@ -40,13 +40,14 @@
             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             for="numero"
           >Número</label>
-          <input
+          <the-mask
             class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             :class="{ 'border-red-500': $v.user.msisdn.$error }"
             id="numero"
             type="text"
-            placeholder="Número ou CPF"
+            placeholder="Número"
             v-model="user.msisdn"
+            :mask="['(##) ####-####', '(##) #####-####']"
           />
         </div>
 
@@ -64,6 +65,7 @@
 </template>
 
 <script>
+import { TheMask } from "vue-the-mask";
 import { required, minLength } from "vuelidate/lib/validators";
 import { RepositoryFactory } from "../api/repositoryFactory";
 import Select from "./Common/Select";
@@ -73,7 +75,8 @@ const SubSegmentFactory = RepositoryFactory.subSegment;
 export default {
   name: "UserForm",
   components: {
-    Select
+    Select,
+    TheMask
   },
   data() {
     return {
@@ -92,7 +95,7 @@ export default {
     this.fetchSegments();
   },
   watch: {
-    'user.segmentId': function segmentId(selectedSegment) {
+    "user.segmentId": function segmentId(selectedSegment) {
       if (!selectedSegment) return;
 
       this.fetchSubSegments(selectedSegment);
@@ -128,8 +131,6 @@ export default {
       this.$store.dispatch("user/createUser", {
         user: this.user
       });
-
-      this.$toasted.error('Created').goAway(1500);
     }
   }
 };

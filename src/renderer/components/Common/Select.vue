@@ -16,9 +16,9 @@
         <option :selected="true" value>Selecione</option>
         <option
           v-for="item in data"
-          :value="item[idName]"
-          v-bind:key="item[idName]"
-        >{{item[valueName]}}</option>
+          :value="item[idProperty]"
+          v-bind:key="item[idProperty]"
+        >{{item[valueProperty]}}</option>
       </select>
       <div
         class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -34,8 +34,8 @@ export default {
   name: "Select",
   props: {
     label: String,
-    idName: String,
-    valueName: String,
+    idProperty: String,
+    valueProperty: String,
     data: Array,
     model: {
       required: true
