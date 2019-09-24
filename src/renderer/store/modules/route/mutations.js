@@ -19,12 +19,12 @@ const ROUTES_FETCHED = (state, route) => {
   state.route = route;
 };
 
-const USER_ROUTE_FETCHED = (state, userRoute) => {
-  state.userRoute = userRoute;
+const ROUTE_DETAIL_FETCHED = (state, routeDetail) => {
+  state.routeDetail = routeDetail;
 };
 
-const USER_ROUTE_PERSISTED = (state, didPersistUserRoute) => {
-  state.didPersistUserRoute = didPersistUserRoute;
+const ROUTE_DETAIL_PERSISTED = (state, didPersistRouteDetail) => {
+  state.didPersistRouteDetail = didPersistRouteDetail;
 };
 
 
@@ -33,7 +33,7 @@ export default {
   FETCHING,
   FETCHING_FAILED,
   ROUTE_CREATED,
-  USER_ROUTE_PERSISTED,
+  ROUTE_DETAIL_PERSISTED,
   ROUTES_FETCHED,
-  USER_ROUTE_FETCHED
+  ROUTE_DETAIL_FETCHED
 };

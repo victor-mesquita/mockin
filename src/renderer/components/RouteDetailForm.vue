@@ -6,7 +6,7 @@
       <a @click="$router.go(-1)" class="cursor-pointer">
         <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para rotas" />
       </a>
-      <div v-if="form.active" class="text-center w-full">
+      <div v-if="form.active" class="text-center w-full animated pulse">
         <div
           class="p-2 bg-green-800 items-center text-green-100 leading-none lg:rounded-full flex lg:inline-flex"
           role="alert"
@@ -87,7 +87,7 @@ import { required } from "vuelidate/lib/validators";
 import Select from "./Common/Select";
 
 export default {
-  name: "RouteForm",
+  name: "RouteDetailForm",
   data() {
     return { form: {}, baseDomain: constants.baseDomain };
   },
@@ -101,7 +101,7 @@ export default {
       userId: "user/selectedUser",
       route: "route/route",
       statusCodes: "global/statusCodes",
-      userRoute: "route/userRoute"
+      routeDetail: "route/routeDetail"
     })
   },
   mounted() {
@@ -110,11 +110,11 @@ export default {
 
     this.$store.dispatch("global/fetchHttpStatusCode");
     this.$store.dispatch("route/getRoute", routeId);
-    this.$store.dispatch("route/getUserRoute", { userId, routeId });
+    this.$store.dispatch("route/getRouteDetail", { userId, routeId });
     this.$store.dispatch("global/hideSearch", true);
   },
   watch: {
-    userRoute(newValue) {
+    routeDetail(newValue) {
       this.form = { ...newValue };
     }
   },
@@ -129,7 +129,7 @@ export default {
       const { userId } = this;
       const { routeId } = this.$route.params;
 
-      this.$store.dispatch("route/persistUserRoute", {
+      this.$store.dispatch("route/persistRouteDetail", {
         ...this.form,
         userId,
         routeId,

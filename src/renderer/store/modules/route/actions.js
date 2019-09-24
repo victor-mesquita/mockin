@@ -2,7 +2,7 @@ import Vue from "vue";
 import { RepositoryFactory } from "@/api/repositoryFactory";
 import { showApiErrors } from "@/util/toastManager";
 const RouteRepository = RepositoryFactory.route;
-const UserRouteRepository = RepositoryFactory.userRoute;
+const RouteDetailRepository = RepositoryFactory.routeDetail;
 
 const getRoutes = async context => {
   try {
@@ -52,19 +52,19 @@ const createRoute = async (context, payload) => {
     context.commit("FETCHING", false);
     context.commit("FETCHING_FAILED", true);
 
-    if (error.response.data) showApiErrors(error.response.data.errors);
+    if (error.response && error.response.data) showApiErrors(error.response.data.errors);
   }
 };
 
-const getUserRoute = async (context, { userId, routeId }) => {
+const getRouteDetail = async (context, { userId, routeId }) => {
   try {
     context.commit("FETCHING", true);
 
-    const response = await UserRouteRepository.get(userId, routeId);
+    const response = await RouteDetailRepository.get(userId, routeId);
 
-    const { userRoute } = response.data;
+    const { routeDetail } = response.data;
 
-    context.commit("USER_ROUTE_FETCHED", userRoute);
+    context.commit("ROUTE_DETAIL_FETCHED", routeDetail);
     context.commit("FETCHING", false);
   } catch (error) {
     context.commit("FETCHING", false);
@@ -72,20 +72,20 @@ const getUserRoute = async (context, { userId, routeId }) => {
   }
 };
 
-const persistUserRoute = async (context, payload) => {
+const persistRouteDetail = async (context, payload) => {
   try {
     context.commit("FETCHING", true);
     let response = {};
 
     if (payload.id) {
-      response = await UserRouteRepository.update(payload);
+      response = await RouteDetailRepository.update(payload);
     } else {
-      response = await UserRouteRepository.create(payload);
+      response = await RouteDetailRepository.create(payload);
     }
-    const { userRoute } = response.data;
+    const { routeDetail } = response.data;
 
-    context.commit("USER_ROUTE_PERSISTED", true);
-    context.commit("USER_ROUTE_FETCHED", userRoute);
+    context.commit("ROUTE_DETAIL_PERSISTED", true);
+    context.commit("ROUTE_DETAIL_FETCHED", routeDetail);
     context.commit("FETCHING", false);
 
     Vue.toasted.success("Rota criada com sucesso!").goAway(1500);
@@ -93,7 +93,7 @@ const persistUserRoute = async (context, payload) => {
     context.commit("FETCHING", false);
     context.commit("FETCHING_FAILED", true);
 
-    if (error.response.data) showApiErrors(error.response.data.errors);
+    if (error.response && error.response.data) showApiErrors(error.response.data.errors);
   }
 };
 
@@ -101,6 +101,6 @@ export default {
   getRoutes,
   createRoute,
   getRoute,
-  getUserRoute,
-  persistUserRoute
+  getRouteDetail,
+  persistRouteDetail
 };

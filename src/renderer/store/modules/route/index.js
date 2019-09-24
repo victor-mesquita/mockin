@@ -7,9 +7,9 @@ const state = {
   fetching: false,
   hasError: false,
   didCreateRoute: false,
-  didPersistUserRoute: false,
+  didPersistRouteDetail: false,
   route: {},
-  userRoute: {}
+  routeDetail: {}
 };
 
 export default {

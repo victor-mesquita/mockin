@@ -34,8 +34,8 @@ export default {
     return {
       menus: [
         { name: "Home", link: "/" },
-        { name: "Clonar massa", link: "/clone" },
-        { name: "Editor KPS", link: "/kps-editor" }
+        // { name: "Clonar massa", link: "/clone" },
+        // { name: "Editor KPS", link: "/kps-editor" }
       ]
     };
   },

@@ -3,13 +3,13 @@ import RouteRepository from "./routeRepository";
 import SegmentRepository from "./segmentRepository";
 import SubSegmentRepository from "./subSegmentRepository";
 import UtilRepository from "./utilRepository";
-import UserRouteRepository from "./userRouteRepository";
+import RouteDetailRepository from "./routeDetailRepository";
 
 // eslint-disable-next-line import/prefer-default-export
 export const RepositoryFactory = {
   user: UserRepository,
   route: RouteRepository,
-  userRoute: UserRouteRepository,
+  routeDetail: RouteDetailRepository,
   segment: SegmentRepository,
   subSegment: SubSegmentRepository,
   util: UtilRepository

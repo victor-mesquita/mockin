@@ -7,7 +7,7 @@
         >{{httpMethod}}</span>
         <span>{{path}}</span>
 
-        <router-link :to="`/user-route/${routeId}/`">
+        <router-link :to="`/route-detail/${routeId}/`">
           <img class="cursor-pointer" src="../../assets/images/settings.svg" alt="Abrir rota" />
         </router-link>
       </div>

@@ -3,15 +3,15 @@ const fetching = state => state.fetching;
 const hasError = state => state.hasError;
 const didCreateRoute = state => state.didCreateRoute;
 const route = state => state.route;
-const userRoute = state => state.userRoute;
-const didPersistUserRoute = state => state.didPersistUserRoute;
+const routeDetail = state => state.routeDetail;
+const didPersistRouteDetail = state => state.didPersistRouteDetail;
 
 export default {
   routes,
   fetching,
   hasError,
   didCreateRoute,
-  didPersistUserRoute,
+  didPersistRouteDetail,
   route,
-  userRoute
+  routeDetail
 };

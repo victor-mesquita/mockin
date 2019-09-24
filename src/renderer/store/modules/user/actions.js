@@ -34,7 +34,7 @@ const createUser = async (context, payload) => {
     context.commit("FETCHING", false);
     context.commit("FETCHING_FAILED", true);
 
-    if (error.response.data) showApiErrors(error.response.data.errors);
+    if (error.response && error.response.data) showApiErrors(error.response.data.errors);
   }
 };
 

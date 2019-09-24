@@ -25,9 +25,9 @@ export default new Router({
       component: require('@/components/RouteForm').default,
     },
     {
-      path: '/user-route/:routeId/',
-      name: 'user-route',
-      component: require('@/components/UserRouteForm').default,
+      path: '/route-detail/:routeId/',
+      name: 'route-detail',
+      component: require('@/components/RouteDetailForm').default,
     },
     {
       path: '/kps-editor',
