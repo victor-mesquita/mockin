@@ -63,7 +63,7 @@
               v-model="form.response"
               @init="editorInit"
               lang="json"
-              theme="chrome"
+              theme="crimson_editor"
               width="100%"
               height="200"
             ></ace-editor>
@@ -144,7 +144,7 @@ export default {
     editorInit: function editorInit() {
       require("brace/ext/language_tools");
       require("brace/mode/json");
-      require("brace/theme/chrome");
+      require("brace/theme/crimson_editor");
       // require("brace/mode/javascript"); //language
       // require("brace/mode/less");
 
