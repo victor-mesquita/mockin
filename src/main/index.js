@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron' // eslint-disable-line
+import { app, BrowserWindow, shell } from "electron"; // eslint-disable-line
 
 /**
  * Set `__static` path to static files in production
@@ -9,9 +9,10 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow;
-const winURL = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:9080'
-  : `file://${__dirname}/index.html`;
+const winURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:9080"
+    : `file://${__dirname}/index.html`;
 
 function createWindow() {
   /**
@@ -21,26 +22,31 @@ function createWindow() {
     height: 563,
     useContentSize: true,
     // frame: false,
-    titleBarStyle: 'hidden',
-    width: 1060,
+    titleBarStyle: "hidden",
+    width: 1060
   });
 
   mainWindow.loadURL(winURL);
 
-  mainWindow.on('closed', () => {
+  mainWindow.on("closed", () => {
     mainWindow = null;
+  });
+
+  mainWindow.webContents.on("new-window", (event, url) => {
+    event.preventDefault();
+    shell.openExternal(url);
   });
 }
 
-app.on('ready', createWindow);
+app.on("ready", createWindow);
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }

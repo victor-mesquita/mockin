@@ -4,12 +4,23 @@
   >
     <div>
       <a @click="$router.go(-1)" class="cursor-pointer">
-        <img  class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para rotas" />
+        <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para rotas" />
       </a>
-
-      <h2
-        class="text-2xl text-primary font-bold mb-8 text-center"
-      >{{route.httpMethod}}: {{route.path}}</h2>
+      <div class="text-center py-4 lg:px-4">
+        <div
+          class="p-2 bg-green-800 items-center text-green-100 leading-none lg:rounded-full flex lg:inline-flex"
+          role="alert"
+        >
+          <span
+            class="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs font-bold mr-3"
+          >Ativo em</span>
+          <a
+            class="font-semibold mr-2 text-left flex-auto"
+            :href="`${baseDomain}${route.path}`"
+            target="_blank"
+          >({{route.httpMethod}}) {{`${baseDomain}${route.path}`}}</a>
+        </div>
+      </div>
     </div>
 
     <div class="w-full h-full">
@@ -70,6 +81,7 @@
 </template>
 
 <script>
+import constants from "@/util/constants";
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
 import Select from "./Common/Select";
@@ -77,7 +89,7 @@ import Select from "./Common/Select";
 export default {
   name: "RouteForm",
   data() {
-    return { form: {} };
+    return { form: {}, baseDomain: constants.baseDomain };
   },
   validations: {
     form: {

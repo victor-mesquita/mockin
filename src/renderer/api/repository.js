@@ -1,8 +1,7 @@
 import axios from "axios";
+import constants from "@/util/constants";
 
-const baseDomain = "http://localhost:4000/api/";
-
-const baseURL = `${baseDomain}`;
+const baseURL = `${constants.baseDomain}${constants.apiPath}`;
 
 export default axios.create({
   baseURL
