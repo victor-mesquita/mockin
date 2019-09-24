@@ -4,8 +4,8 @@
       <div class="container mx-auto px-4 lg:px-20">
         <div class="flex items-center justify-between py-4 h-20">
           <router-link class="text-purple-600 cursor-pointer flex items-center" to="/">
-            <span class="mr-2">Mock-in</span>
-            <img class="h-5" src="../assets/images/icons/128x128.png" alt="mockin" />
+            <img class="h-5 mr-2" src="../assets/images/icons/128x128.png" alt="mockin" />
+            <span >Mock-in</span>
           </router-link>
 
           <div v-show="hideSearch == false" class="lg:px-6 sm:w-1/2">
