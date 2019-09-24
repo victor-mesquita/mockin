@@ -2,11 +2,11 @@
   <div
     class="conteiner mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
   >
-    <div>
+    <div class="flex mb-5 items-center py-4 lg:px-4">
       <a @click="$router.go(-1)" class="cursor-pointer">
         <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para rotas" />
       </a>
-      <div class="text-center py-4 lg:px-4">
+      <div v-if="form.active" class="text-center w-full">
         <div
           class="p-2 bg-green-800 items-center text-green-100 leading-none lg:rounded-full flex lg:inline-flex"
           role="alert"
