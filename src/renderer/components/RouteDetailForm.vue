@@ -57,13 +57,16 @@
               class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               for="route-response"
             >Response</label>
-            <textarea
-              class="h-64 resize-none w-full block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            <ace-editor
               name="route-response"
               id="route-response"
               v-model="form.response"
-              placeholder="Response"
-            />
+              @init="editorInit"
+              lang="json"
+              theme="chrome"
+              width="100%"
+              height="200"
+            ></ace-editor>
           </div>
         </div>
 
@@ -81,6 +84,7 @@
 </template>
 
 <script>
+import AceEditor from "vue2-ace-editor";
 import constants from "@/util/constants";
 import { mapGetters } from "vuex";
 import { required } from "vuelidate/lib/validators";
@@ -89,7 +93,7 @@ import Select from "./Common/Select";
 export default {
   name: "RouteDetailForm",
   data() {
-    return { form: {}, baseDomain: constants.baseDomain };
+    return { form: { response: "" }, baseDomain: constants.baseDomain };
   },
   validations: {
     form: {
@@ -119,7 +123,8 @@ export default {
     }
   },
   components: {
-    Select
+    Select,
+    AceEditor
   },
   methods: {
     submit() {
@@ -135,6 +140,15 @@ export default {
         routeId,
         active: true
       });
+    },
+    editorInit: function editorInit() {
+      require("brace/ext/language_tools");
+      require("brace/mode/json");
+      require("brace/theme/chrome");
+      // require("brace/mode/javascript"); //language
+      // require("brace/mode/less");
+
+      // require("brace/snippets/javascript"); //snippet
     }
   },
   destroyed() {

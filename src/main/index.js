@@ -19,11 +19,11 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
+    height: 690,
     useContentSize: true,
     // frame: false,
     titleBarStyle: "hidden",
-    width: 1060
+    width: 1200
   });
 
   mainWindow.loadURL(winURL);
