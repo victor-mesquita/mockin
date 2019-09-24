@@ -1,0 +1,136 @@
+<template>
+  <div
+    class="conteiner mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
+  >
+    <div>
+      <a @click="$router.go(-1)" class="cursor-pointer">
+        <img  class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para rotas" />
+      </a>
+
+      <h2
+        class="text-2xl text-primary font-bold mb-8 text-center"
+      >{{route.httpMethod}}: {{route.path}}</h2>
+    </div>
+
+    <div class="w-full h-full">
+      <form @submit.prevent="submit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="flex items-center mb-6">
+          <div class="w-full px-3">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              for="route-path"
+            >Path</label>
+            <input
+              class="w-full block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              name="route-path"
+              id="route-path"
+              v-model="route.path"
+              placeholder="/exemplo/create/"
+              disabled="disabled"
+            />
+          </div>
+          <Select
+            class="md:w-1/3 px-3"
+            label="Status code"
+            id-property="name"
+            value-property="name"
+            :data="statusCodes"
+            :model.sync="form.statusCode"
+            :has-error="$v.form.statusCode.$error"
+          ></Select>
+        </div>
+
+        <div class="flex items-center mb-6">
+          <div class="w-full px-3">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              for="route-response"
+            >Response</label>
+            <textarea
+              class="h-64 resize-none w-full block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              name="route-response"
+              id="route-response"
+              v-model="form.response"
+              placeholder="Response"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center mt-10">
+          <button
+            :disabled="this.$v.$anyError"
+            :class="{'opacity-50': this.$v.$anyError}"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-5"
+            type="submit"
+          >Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+import { required } from "vuelidate/lib/validators";
+import Select from "./Common/Select";
+
+export default {
+  name: "RouteForm",
+  data() {
+    return { form: {} };
+  },
+  validations: {
+    form: {
+      statusCode: { required }
+    }
+  },
+  computed: {
+    ...mapGetters({
+      userId: "user/selectedUser",
+      route: "route/route",
+      statusCodes: "global/statusCodes",
+      userRoute: "route/userRoute"
+    })
+  },
+  mounted() {
+    const { userId } = this;
+    const { routeId } = this.$route.params;
+
+    this.$store.dispatch("global/fetchHttpStatusCode");
+    this.$store.dispatch("route/getRoute", routeId);
+    this.$store.dispatch("route/getUserRoute", { userId, routeId });
+    this.$store.dispatch("global/hideSearch", true);
+  },
+  watch: {
+    userRoute(newValue) {
+      this.form = { ...newValue };
+    }
+  },
+  components: {
+    Select
+  },
+  methods: {
+    submit() {
+      this.$v.form.$touch();
+      if (this.$v.form.$error) return;
+
+      const { userId } = this;
+      const { routeId } = this.$route.params;
+
+      this.$store.dispatch("route/persistUserRoute", {
+        ...this.form,
+        userId,
+        routeId,
+        active: true
+      });
+    }
+  },
+  destroyed() {
+    this.$store.dispatch("global/hideSearch", false);
+  }
+};
+</script>
+
+<style lang="scss">
+@import "../assets/styles/variables";
+</style>

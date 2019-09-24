@@ -11,8 +11,13 @@
       <span class="ml-1 text-sm text-gray-600">{{plan}}</span>
     </div>
 
-    <router-link :to="`/routes/`">
-      <img class="cursor-pointer" src="../../assets/images/send.svg" alt="Abrir massa" />
+    <router-link :to="`/routes/${msisdn}`">
+      <img
+        class="cursor-pointer"
+        src="../../assets/images/send.svg"
+        alt="Abrir massa"
+        v-on:click="$emit('click', $event.target.value)"
+      />
     </router-link>
   </div>
 </template>
@@ -29,7 +34,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 @media (min-width: 1024px) {
   .user-card {
     width: 31.333333%;

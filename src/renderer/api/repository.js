@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseDomain = "http://localhost:4000/";
+const baseDomain = "http://localhost:4000/api/";
 
 const baseURL = `${baseDomain}`;
 

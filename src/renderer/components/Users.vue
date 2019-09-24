@@ -34,6 +34,7 @@
           :msisdn="user.msisdn"
           :segment="user.segment.name"
           :plan="user.name"
+          v-on:click="setUser(user.id)"
         ></UserElement>
       </div>
     </div>
@@ -76,6 +77,9 @@ export default {
   methods: {
     fetchUsers: function fetchUsers() {
       this.$store.dispatch("user/getUsers");
+    },
+    setUser: function setUser(id) {
+      this.$store.dispatch("user/setUser", id);
     }
   }
 };

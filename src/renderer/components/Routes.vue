@@ -15,7 +15,10 @@
             alt="Adicionar rota"
           />
         </router-link>
-        <h2 class="text-2xl text-primary font-bold">Rotas</h2>
+        <h2 class="text-2xl text-primary font-bold">
+          Rotas de
+          <span v-msisdn-format>{{$route.params.msisdn}}</span>
+        </h2>
       </div>
     </div>
 
@@ -70,9 +73,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("route/getRoutes", {
-      userId: this.$route.params.userId
-    });
+    this.$store.dispatch("route/getRoutes");
 
     this.$store.dispatch("global/setPage", {
       pageName: "Rotas"
@@ -80,9 +81,7 @@ export default {
   },
   methods: {
     fetchRoutes: function fetchRoutes() {
-      this.$store.dispatch("route/getRoutes", {
-        userId: this.$route.params.userId
-      });
+      this.$store.dispatch("route/getRoutes");
     }
   }
 };

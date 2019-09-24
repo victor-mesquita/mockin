@@ -24,9 +24,20 @@ const fetchHttpMethods = async (context) => {
   }
 };
 
+const fetchHttpStatusCode = async (context) => {
+  try {
+    const statusCodes = await UtilRepository.listStatusCodes();
+
+    context.commit("HTTP_STATUS_CODES", statusCodes);
+  } catch (error) {
+    context.commit("HTTP_STATUS_CODES", []);
+  }
+};
+
 export default {
   setPage,
   doSearch,
   hideSearch,
-  fetchHttpMethods
+  fetchHttpMethods,
+  fetchHttpStatusCode
 };

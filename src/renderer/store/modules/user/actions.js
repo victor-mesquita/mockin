@@ -1,5 +1,5 @@
-import Vue from "vue";
-import { RepositoryFactory } from "../../../api/repositoryFactory";
+import { showSuccess, showApiErrors } from "@/util/toastManager";
+import { RepositoryFactory } from "@/api/repositoryFactory";
 const UserFactory = RepositoryFactory.user;
 
 const getUsers = async context => {
@@ -29,16 +29,21 @@ const createUser = async (context, payload) => {
     context.commit("USER_CREATED", user);
     context.commit("FETCHING", false);
 
-    Vue.toasted.success("Usuário criado com sucesso!").goAway(1500);
+    showSuccess("Usuário criado com sucesso!").goAway(1500);
   } catch (error) {
     context.commit("FETCHING", false);
     context.commit("FETCHING_FAILED", true);
 
-    Vue.toasted.error("Falha ao criar usuário").goAway(1500);
+    if (error.response.data) showApiErrors(error.response.data.errors);
   }
+};
+
+const setUser = (context, payload) => {
+  context.commit("SELECTED_USER", payload);
 };
 
 export default {
   getUsers,
-  createUser
+  createUser,
+  setUser
 };

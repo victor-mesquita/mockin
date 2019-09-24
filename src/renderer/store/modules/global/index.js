@@ -6,7 +6,8 @@ const state = {
   pageName: "",
   searchTerm: "",
   hideSearch: false,
-  httpMethods: []
+  httpMethods: [],
+  statusCodes: []
 };
 
 export default {

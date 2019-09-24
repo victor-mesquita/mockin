@@ -3,9 +3,9 @@
     class="conteiner mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
   >
     <div>
-      <router-link to="/routes/">
+      <a @click="$router.go(-1)" class="cursor-pointer">
         <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para rotas" />
-      </router-link>
+      </a>
 
       <h2 class="text-2xl text-primary font-bold mb-8 text-center">Nova rota</h2>
     </div>

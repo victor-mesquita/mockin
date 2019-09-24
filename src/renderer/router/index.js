@@ -15,7 +15,7 @@ export default new Router({
       redirect: '/',
     },
     {
-      path: '/routes/',
+      path: '/routes/:msisdn',
       name: 'routes',
       component: require('@/components/Routes').default,
     },
@@ -23,6 +23,11 @@ export default new Router({
       path: '/route/:id?',
       name: 'route',
       component: require('@/components/RouteForm').default,
+    },
+    {
+      path: '/user-route/:routeId/',
+      name: 'user-route',
+      component: require('@/components/UserRouteForm').default,
     },
     {
       path: '/kps-editor',

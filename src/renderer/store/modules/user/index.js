@@ -6,7 +6,8 @@ const state = {
   users: [],
   fetching: false,
   hasError: false,
-  didCreateUser: false
+  didCreateUser: false,
+  selectedUser: null
 };
 
 export default {

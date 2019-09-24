@@ -6,7 +6,10 @@ const state = {
   routes: [],
   fetching: false,
   hasError: false,
-  didCreateRoute: false
+  didCreateRoute: false,
+  didPersistUserRoute: false,
+  route: {},
+  userRoute: {}
 };
 
 export default {

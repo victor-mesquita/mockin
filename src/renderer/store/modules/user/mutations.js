@@ -15,9 +15,14 @@ const USER_CREATED = (state, didCreateUser) => {
   state.didCreateUser = didCreateUser;
 };
 
+const SELECTED_USER = (state, selectedUser) => {
+  state.selectedUser = selectedUser;
+};
+
 export default {
   USERS_FETCHED,
   FETCHING,
   FETCHING_FAILED,
-  USER_CREATED
+  USER_CREATED,
+  SELECTED_USER
 };

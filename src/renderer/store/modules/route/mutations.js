@@ -15,9 +15,25 @@ const ROUTE_CREATED = (state, didCreateRoute) => {
   state.didCreateRoute = didCreateRoute;
 };
 
+const ROUTES_FETCHED = (state, route) => {
+  state.route = route;
+};
+
+const USER_ROUTE_FETCHED = (state, userRoute) => {
+  state.userRoute = userRoute;
+};
+
+const USER_ROUTE_PERSISTED = (state, didPersistUserRoute) => {
+  state.didPersistUserRoute = didPersistUserRoute;
+};
+
+
 export default {
   ROUTES_UPDATED,
   FETCHING,
   FETCHING_FAILED,
-  ROUTE_CREATED
+  ROUTE_CREATED,
+  USER_ROUTE_PERSISTED,
+  ROUTES_FETCHED,
+  USER_ROUTE_FETCHED
 };

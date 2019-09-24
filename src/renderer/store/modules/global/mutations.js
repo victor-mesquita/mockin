@@ -14,9 +14,14 @@ const HTTP_METHODS = (state, httpMethods) => {
   state.httpMethods = httpMethods;
 };
 
+const HTTP_STATUS_CODES = (state, statusCodes) => {
+  state.statusCodes = statusCodes;
+};
+
 export default {
   GLOBAL_PAGE,
   GLOBAL_SEARCH_TERM,
   GLOBAL_HIDE_SEARCH,
-  HTTP_METHODS
+  HTTP_METHODS,
+  HTTP_STATUS_CODES
 };
