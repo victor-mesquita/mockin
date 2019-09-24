@@ -3,7 +3,10 @@
     <div class="bg-white shadow">
       <div class="container mx-auto px-4 lg:px-20">
         <div class="flex items-center justify-between py-4 h-20">
-          <router-link class="h-15 text-purple-600 cursor-pointer" to="/">Mock-in ⏣</router-link>
+          <router-link class="text-purple-600 cursor-pointer flex items-center" to="/">
+            <span class="mr-2">Mock-in</span>
+            <img class="h-15" src="../assets/images/icons/128x128.png" alt="mockin" />
+          </router-link>
 
           <div v-show="hideSearch == false" class="lg:px-6 sm:w-1/2">
             <Search @onSearch="onSearch" :pageName="pageName"></Search>
