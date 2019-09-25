@@ -1,6 +1,6 @@
 <template>
   <div
-    class="conteiner mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
+    class="mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
   >
     <div class="flex mb-5 items-center py-4 lg:px-4">
       <a @click="$router.go(-1)" class="cursor-pointer">
