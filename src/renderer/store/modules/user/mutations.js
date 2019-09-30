@@ -1,4 +1,4 @@
-const USERS_FETCHED = (state, users) => {
+const SET_USERS = (state, users) => {
   state.users = users;
 };
 
@@ -11,18 +11,28 @@ const FETCHING_FAILED = (state, hasError) => {
   state.hasError = hasError;
 };
 
-const USER_CREATED = (state, didCreateUser) => {
-  state.didCreateUser = didCreateUser;
+const SET_DID_CREATE_USER = (state, user) => {
+  state.user = user;
 };
 
 const SELECTED_USER = (state, selectedUser) => {
   state.selectedUser = selectedUser;
 };
 
+const SET_SEGMENTS = (state, segments) => {
+  state.segments = segments;
+};
+
+const SET_SUB_SEGMENTS = (state, subSegments) => {
+  state.subSegments = subSegments;
+};
+
 export default {
-  USERS_FETCHED,
+  SET_USERS,
   FETCHING,
   FETCHING_FAILED,
-  USER_CREATED,
-  SELECTED_USER
+  SET_DID_CREATE_USER,
+  SELECTED_USER,
+  SET_SEGMENTS,
+  SET_SUB_SEGMENTS
 };

@@ -4,7 +4,7 @@
   >
     <div>
       <a @click="$router.go(-1)" class="cursor-pointer">
-        <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para rotas" />
+        <img class="float-left" src="@/assets/images/arrow-left.svg" alt="Voltar para rotas" />
       </a>
 
       <h2 class="text-2xl text-primary font-bold mb-8 text-center">Nova rota</h2>

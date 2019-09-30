@@ -1,15 +1,5 @@
 <template>
-  <div
-    class="mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
-  >
-    <div>
-      <router-link to="/">
-        <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para massas" />
-      </router-link>
-
-      <h2 class="text-2xl text-primary font-bold mb-8 text-center">Criar massa</h2>
-    </div>
-
+  <container title="Criar massa" :can-back="true">
     <div class="w-full h-full">
       <form @submit.prevent="submit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="flex">
@@ -61,29 +51,34 @@
         </div>
       </form>
     </div>
-  </div>
+  </container>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { TheMask } from "vue-the-mask";
 import { required, minLength } from "vuelidate/lib/validators";
-import { RepositoryFactory } from "../api/repositoryFactory";
-import Select from "./Common/Select";
-const SegmentFactory = RepositoryFactory.segment;
-const SubSegmentFactory = RepositoryFactory.subSegment;
+import store from "@/store";
+import Container from "@/components/Common/Container";
+import Select from "@/components/Common/Select";
 
 export default {
   name: "UserForm",
   components: {
     Select,
-    TheMask
+    TheMask,
+    Container
   },
   data() {
     return {
-      segments: [],
-      subSegments: [],
       user: {}
     };
+  },
+  computed: {
+    ...mapGetters({
+      segments: "user/segments",
+      subSegments: "user/subSegments"
+    })
   },
   validations: {
     user: {
@@ -91,39 +86,14 @@ export default {
       msisdn: { required, min: minLength(10) }
     }
   },
-  mounted() {
-    this.fetchSegments();
-  },
   watch: {
     "user.segmentId": function segmentId(selectedSegment) {
       if (!selectedSegment) return;
 
-      this.fetchSubSegments(selectedSegment);
+      this.$store.dispatch("user/fetchSubSegments", { segmentId: selectedSegment });
     }
   },
   methods: {
-    fetchSegments: async function fetchSegments() {
-      try {
-        const response = await SegmentFactory.list();
-
-        const { segments } = response.data;
-
-        this.segments = segments;
-      } catch (error) {
-        this.segments = [];
-      }
-    },
-    fetchSubSegments: async function fetchSubSegments(segmentId) {
-      try {
-        const response = await SubSegmentFactory.list(segmentId);
-
-        const { subSegments } = response.data;
-
-        this.subSegments = subSegments;
-      } catch (error) {
-        this.subSegments = [];
-      }
-    },
     submit() {
       this.$v.user.$touch();
       if (this.$v.user.$error) return;
@@ -132,7 +102,17 @@ export default {
         user: this.user
       });
     }
-  }
+  },
+  beforeRouteEnter(to, from, next) {
+    const fetchSegments = store.dispatch("user/fetchSegments");
+    Promise.all([fetchSegments]).then(() => {
+      next();
+    });
+  },
+  async beforeRouteLeave(to, from, next) {
+    await store.dispatch("user/cleanState");
+    next();
+  },
 };
 </script>
 

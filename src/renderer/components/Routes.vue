@@ -4,14 +4,14 @@
   >
     <div>
       <router-link to="/">
-        <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para massas" />
+        <img class="float-left" src="@/assets/images/arrow-left.svg" alt="Voltar para massas" />
       </router-link>
 
       <div class="flex mb-8 justify-center">
         <router-link class="flex" :to="`/route/`">
           <img
             class="mr-2 w-5 cursor-pointer"
-            src="../assets/images/circle-plus.svg"
+            src="@/assets/images/circle-plus.svg"
             alt="Adicionar rota"
           />
         </router-link>

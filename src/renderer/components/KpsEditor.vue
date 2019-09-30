@@ -21,14 +21,14 @@
           <tr class="hover:bg-blue-lightest">
             <td class="py-4 px-6 border-b border-grey-light">Android</td>
             <td class="py-4 px-6 border-b border-grey-light text-center">
-              <img class="w-5 m-auto" src="../assets/images/pencil.svg" />
+              <img class="w-5 m-auto" src="@/assets/images/pencil.svg" />
             </td>
           </tr>
 
           <tr class="hover:bg-blue-lightest">
             <td class="py-4 px-6 border-b border-grey-light">Android</td>
             <td class="py-4 px-6 border-b border-grey-light text-center">
-              <img class="w-5 m-auto" src="../assets/images/pencil.svg" />
+              <img class="w-5 m-auto" src="@/assets/images/pencil.svg" />
             </td>
           </tr>
         </tbody>

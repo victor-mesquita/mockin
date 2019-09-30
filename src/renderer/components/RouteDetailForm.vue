@@ -4,7 +4,7 @@
   >
     <div class="flex mb-5 items-center py-4 lg:px-4">
       <a @click="$router.go(-1)" class="cursor-pointer">
-        <img class="float-left" src="../assets/images/arrow-left.svg" alt="Voltar para rotas" />
+        <img class="float-left" src="@/assets/images/arrow-left.svg" alt="Voltar para rotas" />
       </a>
       <div v-if="form.active" class="text-center w-full animated pulse">
         <div
