@@ -1,6 +1,6 @@
 <template>
   <div
-    class="conteiner mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
+    class="mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
   >
     <h2 class="text-2xl text-primary font-bold mb-8 text-center">Clonar massa!</h2>
   </div>

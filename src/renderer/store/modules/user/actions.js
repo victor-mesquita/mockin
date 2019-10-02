@@ -1,49 +1,69 @@
 import { showSuccess, showApiErrors } from "@/util/toastManager";
+import { asyncHandler } from "@/util/vuexAsync";
 import { RepositoryFactory } from "@/api/repositoryFactory";
-const UserFactory = RepositoryFactory.user;
+const SegmentRepository = RepositoryFactory.segment;
+const SubSegmentRepository = RepositoryFactory.subSegment;
+const UserRepository = RepositoryFactory.user;
 
 const getUsers = async context => {
-  try {
-    context.commit("FETCHING", true);
-
-    const response = await UserFactory.list();
+  asyncHandler(context, async () => {
+    const response = await UserRepository.list();
 
     const { users } = response.data;
 
-    context.commit("USERS_FETCHED", users);
-    context.commit("FETCHING", false);
-  } catch (error) {
-    context.commit("FETCHING", false);
-    context.commit("FETCHING_FAILED", true);
-  }
+    context.commit("SET_USERS", users);
+  });
 };
 
 const createUser = async (context, payload) => {
-  try {
-    context.commit("FETCHING", true);
+  asyncHandler(context, async () => {
+    try {
+      await UserRepository.create(payload.user);
 
-    const response = await UserFactory.create(payload.user);
+      context.commit("SET_DID_CREATE_USER", true);
 
-    const { user } = response.data;
-
-    context.commit("USER_CREATED", user);
-    context.commit("FETCHING", false);
-
-    showSuccess("Usuário criado com sucesso!").goAway(1500);
-  } catch (error) {
-    context.commit("FETCHING", false);
-    context.commit("FETCHING_FAILED", true);
-
-    if (error.response && error.response.data) showApiErrors(error.response.data.errors);
-  }
+      showSuccess("Usuário criado com sucesso!").goAway(1500);
+    } catch (error) {
+      if (error.response && error.response.data) {
+        showApiErrors(error.response.data.errors);
+      }
+    }
+  });
 };
 
 const setUser = (context, payload) => {
   context.commit("SELECTED_USER", payload);
 };
 
+const fetchSegments = async context => {
+  asyncHandler(context, async () => {
+    const response = await SegmentRepository.list();
+
+    const { segments } = response.data;
+
+    context.commit("SET_SEGMENTS", segments);
+  });
+};
+
+const fetchSubSegments = async (context, { segmentId }) => {
+  asyncHandler(context, async () => {
+    const response = await SubSegmentRepository.list(segmentId);
+
+    const { subSegments } = response.data;
+
+    context.commit("SET_SUB_SEGMENTS", subSegments);
+  });
+};
+
+const cleanState = async (context) => {
+  context.commit("SET_SUB_SEGMENTS", []);
+};
+
 export default {
   getUsers,
   createUser,
-  setUser
+  setUser,
+  fetchSegments,
+  fetchSubSegments,
+  cleanState
 };

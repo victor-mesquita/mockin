@@ -11,14 +11,10 @@
       <span class="ml-1 text-sm text-gray-600">{{plan}}</span>
     </div>
 
-    <router-link :to="`/routes/${msisdn}`">
-      <img
-        class="cursor-pointer"
-        src="../../assets/images/send.svg"
-        alt="Abrir massa"
-        v-on:click="$emit('click', $event.target.value)"
-      />
-    </router-link>
+    <div class="flex w-16 justify-between">
+      <img src="@/assets/images/eye.svg" alt="Abrir massa" class="cursor-pointer" v-on:click="$emit('view', $event.target.value)">
+      <img src="@/assets/images/pencil-edit.svg" alt="Editar massa" class="cursor-pointer" v-on:click="$emit('edit', $event.target.value)">
+    </div>
   </div>
 </template>
 

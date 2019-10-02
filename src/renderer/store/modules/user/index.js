@@ -7,7 +7,9 @@ const state = {
   fetching: false,
   hasError: false,
   didCreateUser: false,
-  selectedUser: null
+  selectedUser: null,
+  segments: [],
+  subSegments: []
 };
 
 export default {
