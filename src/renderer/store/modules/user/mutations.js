@@ -11,8 +11,8 @@ const FETCHING_FAILED = (state, hasError) => {
   state.hasError = hasError;
 };
 
-const SET_DID_CREATE_USER = (state, user) => {
-  state.user = user;
+const SET_DID_CREATE_USER = (state, didCreateUser) => {
+  state.didCreateUser = didCreateUser;
 };
 
 const SELECTED_USER = (state, selectedUser) => {
