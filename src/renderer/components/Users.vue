@@ -1,18 +1,5 @@
 <template>
-  <div
-    class="conteiner mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
-  >
-    <div class="flex mb-8 justify-center">
-      <router-link class="flex" :to="`/user/`">
-        <img
-          class="mr-2 w-5 cursor-pointer"
-          src="../assets/images/circle-plus.svg"
-          alt="Adicionar massa"
-        />
-      </router-link>
-      <h2 class="text-2xl text-primary font-bold">Massas</h2>
-    </div>
-
+  <container title="Massas" :can-add="true" v-on:add="editUser({})">
     <h4
       v-show="hasError"
       v-on:click="fetchUsers"
@@ -34,16 +21,18 @@
           :msisdn="user.msisdn"
           :segment="user.segment.name"
           :plan="user.name"
-          v-on:click="setUser(user.id)"
+          v-on:view="viewUser(user)"
+          v-on:edit="editUser(user)"
         ></UserElement>
       </div>
     </div>
-  </div>
+  </container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 
+import Container from "@/components/Common/Container";
 import UserElement from "./Users/UserElement";
 import UserLoading from "./Users/UserLoading";
 
@@ -51,7 +40,8 @@ export default {
   name: "users",
   components: {
     UserElement,
-    UserLoading
+    UserLoading,
+    Container
   },
   computed: {
     ...mapGetters({
@@ -78,8 +68,13 @@ export default {
     fetchUsers: function fetchUsers() {
       this.$store.dispatch("user/getUsers");
     },
-    setUser: function setUser(id) {
-      this.$store.dispatch("user/setUser", id);
+    viewUser: function viewUser(user) {
+      this.$store.dispatch("user/setUser", user.id);
+
+      this.$router.push({ name: "routes", params: { msisdn: user.msisdn } });
+    },
+    editUser: function editUser(user) {
+      this.$router.push({ name: "user", params: { id: user.id } });
     }
   }
 };

@@ -11,7 +11,7 @@
       dir="auto"
     />
     <div class="pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center">
-      <img src="../../assets/images/search.svg" :alt="`Buscar ${pageName}`" />
+      <img src="@/assets/images/search.svg" :alt="`Buscar ${pageName}`" />
     </div>
   </div>
 </template>

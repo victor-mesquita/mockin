@@ -23,7 +23,7 @@
       <div
         class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
       >
-        <img class="fill-current h-4 w-4" src="../../assets/images/chevron-bottom.svg" :alt="label" />
+        <img class="fill-current h-4 w-4" src="@/assets/images/chevron-bottom.svg" :alt="label" />
       </div>
     </div>
   </div>

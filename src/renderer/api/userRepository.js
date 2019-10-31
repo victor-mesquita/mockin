@@ -6,7 +6,15 @@ export default {
     return repository.get(`${resource}`);
   },
 
+  get(id) {
+    return repository.get(`${resource}/${id}`);
+  },
+
   create(user) {
     return repository.post(`${resource}`, { user });
+  },
+
+  update(user) {
+    return repository.put(`${resource}`, { user });
   }
 };

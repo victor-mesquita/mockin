@@ -3,11 +3,17 @@ const fetching = state => state.fetching;
 const hasError = state => state.hasError;
 const didCreateUser = state => state.didCreateUser;
 const selectedUser = state => state.selectedUser;
+const segments = state => state.segments;
+const subSegments = state => state.subSegments;
+const user = state => state.user;
 
 export default {
   users,
   fetching,
   hasError,
   didCreateUser,
-  selectedUser
+  selectedUser,
+  segments,
+  subSegments,
+  user
 };
