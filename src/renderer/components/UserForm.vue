@@ -20,7 +20,7 @@
             id-property="id"
             value-property="name"
             :data="subSegments"
-            :model.sync="user.subsegmentId"
+            :model.sync="user.subSegmentId"
             v-show="subSegments.length > 0"
           ></Select>
         </div>
@@ -77,7 +77,8 @@ export default {
   computed: {
     ...mapGetters({
       segments: "user/segments",
-      subSegments: "user/subSegments"
+      subSegments: "user/subSegments",
+      persistedUser: "user/user"
     })
   },
   validations: {
@@ -90,7 +91,12 @@ export default {
     "user.segmentId": function segmentId(selectedSegment) {
       if (!selectedSegment) return;
 
-      this.$store.dispatch("user/fetchSubSegments", { segmentId: selectedSegment });
+      this.$store.dispatch("user/fetchSubSegments", {
+        segmentId: selectedSegment
+      });
+    },
+    persistedUser() {
+      this.user = { ...this.persistedUser };
     }
   },
   methods: {
@@ -105,14 +111,17 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     const fetchSegments = store.dispatch("user/fetchSegments");
-    Promise.all([fetchSegments]).then(() => {
+    const { id } = to.params;
+    const fetchUser = store.dispatch("user/getUser", id);
+
+    Promise.all([fetchSegments, fetchUser]).then(() => {
       next();
     });
   },
   async beforeRouteLeave(to, from, next) {
     await store.dispatch("user/cleanState");
     next();
-  },
+  }
 };
 </script>
 

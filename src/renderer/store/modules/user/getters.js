@@ -5,6 +5,7 @@ const didCreateUser = state => state.didCreateUser;
 const selectedUser = state => state.selectedUser;
 const segments = state => state.segments;
 const subSegments = state => state.subSegments;
+const user = state => state.user;
 
 export default {
   users,
@@ -13,5 +14,6 @@ export default {
   didCreateUser,
   selectedUser,
   segments,
-  subSegments
+  subSegments,
+  user
 };

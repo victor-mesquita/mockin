@@ -15,10 +15,24 @@ const getUsers = async context => {
   });
 };
 
+const getUser = async (context, userId) => {
+  asyncHandler(context, async () => {
+    const response = await UserRepository.get(userId);
+
+    const { user } = response.data;
+
+    context.commit("USER_FETCHED", user);
+  });
+};
+
 const createUser = async (context, payload) => {
   asyncHandler(context, async () => {
     try {
-      await UserRepository.create(payload.user);
+      if (payload.user.id) {
+        await UserRepository.update(payload.user);
+      } else {
+        await UserRepository.create(payload.user);
+      }
 
       context.commit("SET_DID_CREATE_USER", true);
 
@@ -55,12 +69,13 @@ const fetchSubSegments = async (context, { segmentId }) => {
   });
 };
 
-const cleanState = async (context) => {
+const cleanState = async context => {
   context.commit("SET_SUB_SEGMENTS", []);
 };
 
 export default {
   getUsers,
+  getUser,
   createUser,
   setUser,
   fetchSegments,

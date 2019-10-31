@@ -9,7 +9,8 @@ const state = {
   didCreateUser: false,
   selectedUser: null,
   segments: [],
-  subSegments: []
+  subSegments: [],
+  user: {}
 };
 
 export default {

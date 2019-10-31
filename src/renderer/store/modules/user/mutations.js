@@ -2,6 +2,10 @@ const SET_USERS = (state, users) => {
   state.users = users;
 };
 
+const USER_FETCHED = (state, user) => {
+  state.user = user;
+};
+
 const FETCHING = (state, fetching) => {
   state.fetching = fetching;
   state.hasError = false;
@@ -34,5 +38,6 @@ export default {
   SET_DID_CREATE_USER,
   SELECTED_USER,
   SET_SEGMENTS,
-  SET_SUB_SEGMENTS
+  SET_SUB_SEGMENTS,
+  USER_FETCHED
 };

@@ -145,10 +145,6 @@ export default {
       require("brace/ext/language_tools");
       require("brace/mode/json");
       require("brace/theme/crimson_editor");
-      // require("brace/mode/javascript"); //language
-      // require("brace/mode/less");
-
-      // require("brace/snippets/javascript"); //snippet
     }
   },
   destroyed() {
