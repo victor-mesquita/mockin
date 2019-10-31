@@ -1,6 +1,6 @@
 {
   "name": "mockin",
-  "version": "0.0.2-alpha",
+  "version": "0.0.3-alpha",
   "author": "Victor Mesquita <victormesquita@brq.com>",
   "description": "Mock manager UI",
   "license": "MIT",
