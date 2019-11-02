@@ -16,7 +16,7 @@
           >Ativo em</span>
           <a
             class="font-semibold mr-2 text-left flex-auto"
-            :href="`${baseDomain}${route.path}`"
+            :href="`${baseDomain}/${route.path}`"
             target="_blank"
           >({{route.httpMethod}}) {{`${baseDomain}${route.path}`}}</a>
         </div>

@@ -109,6 +109,12 @@ export default {
       });
     }
   },
+  mounted() {
+    this.$store.dispatch("global/hideSearch", true);
+  },
+  destroyed() {
+    this.$store.dispatch("global/hideSearch", false);
+  },
   beforeRouteEnter(to, from, next) {
     const fetchSegments = store.dispatch("user/fetchSegments");
     const { id } = to.params;
