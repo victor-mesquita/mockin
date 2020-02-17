@@ -7,7 +7,7 @@ export default {
   },
 
   get(id) {
-    return repository.get(`${resource}/${id}`);
+    return repository.get(`${resource}${id}`);
   },
 
   create(user) {
@@ -16,5 +16,9 @@ export default {
 
   update(user) {
     return repository.put(`${resource}`, { user });
+  },
+
+  delete(userId) {
+    return repository.delete(`${resource}${userId}`);
   }
 };

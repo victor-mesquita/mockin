@@ -21,16 +21,14 @@ function applyPattern(pattern, value) {
 
   return appliedValuePattern;
 }
+const formatMsisdn = function formatMsisdn(unformatedPhoneNumber) {
+  const numberPattern = "(00) 00000-0000";
 
-const msisdnFormatDirective = Vue.directive("msisdnFormat", {
-  inserted: el => {
-    const numberPattern = "(00) 00000-0000";
-    const unformatedPhoneNumber = el.innerHTML;
+  const formattedNumber = applyPattern(numberPattern, unformatedPhoneNumber);
 
-    const formattedNumber = applyPattern(numberPattern, unformatedPhoneNumber);
+  return formattedNumber;
+};
 
-    el.innerHTML = formattedNumber;
-  }
-});
+const msisdnFormatFilter = Vue.filter("msisdnFormat", formatMsisdn);
 
-export default msisdnFormatDirective;
+export { msisdnFormatFilter, formatMsisdn };

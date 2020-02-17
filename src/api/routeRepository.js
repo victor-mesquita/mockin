@@ -11,5 +11,8 @@ export default {
   },
   create(route) {
     return repository.post(`${routeResource}`, { route });
+  },
+  update(route) {
+    return repository.put(`${routeResource}`, { route });
   }
 };

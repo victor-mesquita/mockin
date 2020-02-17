@@ -1,26 +1,16 @@
 <template>
-  <div
-    class="mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
+  <container
+    :title="`Rotas de ${formattedMsisdn}`"
+    :can-add="true"
+    :can-back="true"
+    v-on:add="addRoute()"
   >
-    <div>
-      <router-link to="/">
-        <img class="float-left" src="@/assets/images/arrow-left.svg" alt="Voltar para massas" />
-      </router-link>
-
-      <div class="flex mb-8 justify-center">
-        <router-link class="flex" :to="`/route/`">
-          <img
-            class="mr-2 w-5 cursor-pointer"
-            src="@/assets/images/circle-plus.svg"
-            alt="Adicionar rota"
-          />
-        </router-link>
-        <h2 class="text-2xl text-primary font-bold">
-          Rotas de
-          <span v-msisdn-format>{{$route.params.msisdn}}</span>
-        </h2>
-      </div>
-    </div>
+    <popup
+      v-show="showPopup"
+      v-on:cancel="showPopup = false"
+      title="Deseja excluir essa rota?"
+      message="Essa mudança afetará todas as aplicações utilizando a mesma."
+    ></popup>
 
     <h4
       v-show="hasError"
@@ -43,10 +33,12 @@
           :routeId="route.id"
           :httpMethod="route.httpMethod"
           :path="route.path"
+          v-on:view="viewRoute(route)"
+          v-on:delete="deleteRoute()"
         ></RouteElement>
       </div>
     </div>
-  </div>
+  </container>
 </template>
 
 <script>
@@ -54,10 +46,23 @@ import { mapGetters } from "vuex";
 
 import RouteElement from "./Routes/RouteElement";
 import RouteLoading from "./Routes/RouteLoading";
+import Popup from "@/components/Common/Popup";
+import Container from "@/components/Common/Container";
+import { formatMsisdn } from "@/filters/msisdnFormat";
 
 export default {
   name: "Routes",
-  components: { RouteElement, RouteLoading },
+  components: {
+    RouteElement,
+    RouteLoading,
+    Popup,
+    Container
+  },
+  data() {
+    return {
+      showPopup: false
+    };
+  },
   computed: {
     ...mapGetters({
       routes: "route/routes",
@@ -70,6 +75,9 @@ export default {
     },
     noRouteResult: function noRouteResult() {
       return this.filteredRoutes.length === 0;
+    },
+    formattedMsisdn: function formattedMsisdn() {
+      return formatMsisdn(this.$route.params.msisdn);
     }
   },
   mounted() {
@@ -82,6 +90,15 @@ export default {
   methods: {
     fetchRoutes: function fetchRoutes() {
       this.$store.dispatch("route/getRoutes");
+    },
+    viewRoute: function viewRoute(route) {
+      this.$router.push({ name: "route", params: { id: route.id } });
+    },
+    addRoute: function addRoute() {
+      this.$router.push({ name: "route" });
+    },
+    deleteRoute: function deleteRoute() {
+      this.showPopup = true;
     }
   }
 };

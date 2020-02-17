@@ -6,6 +6,15 @@
       class="text-xl text-primary mb-8 text-center cursor-pointer"
     >Falha ao recuperar massas, Toque para atualizar!</h4>
 
+    <popup
+      v-show="showPopup"
+      v-on:cancel="showPopup = false"
+      v-on:confirm="confirmDeleteUser"
+      :data="popupData"
+      title="Deseja execluir essa massa?"
+      message="Essa mudança afetará todas as rotas associadas a essa massa."
+    ></popup>
+
     <h4
       v-show="noRouteResult && !hasError"
       class="text-xl text-primary mb-8 text-center"
@@ -18,11 +27,13 @@
         <UserElement
           v-for="user in filteredUsers"
           :key="user.msisdn"
-          :msisdn="user.msisdn"
+          :user-id="user.id"
+          :msisdn="user.msisdn | msisdnFormat"
           :segment="user.segment.name"
           :plan="user.name"
           v-on:view="viewUser(user)"
           v-on:edit="editUser(user)"
+          v-on:delete="deleteUser"
         ></UserElement>
       </div>
     </div>
@@ -33,6 +44,7 @@
 import { mapGetters } from "vuex";
 
 import Container from "@/components/Common/Container";
+import Popup from "@/components/Common/Popup";
 import UserElement from "./Users/UserElement";
 import UserLoading from "./Users/UserLoading";
 
@@ -41,7 +53,14 @@ export default {
   components: {
     UserElement,
     UserLoading,
-    Container
+    Container,
+    Popup
+  },
+  data() {
+    return {
+      showPopup: false,
+      popupData: {}
+    };
   },
   computed: {
     ...mapGetters({
@@ -75,6 +94,14 @@ export default {
     },
     editUser: function editUser(user) {
       this.$router.push({ name: "user", params: { id: user.id } });
+    },
+    deleteUser: function deleteUser(userId) {
+      this.showPopup = true;
+      this.popupData = { userId };
+    },
+    confirmDeleteUser: function confirmDeleteUser(data) {
+      this.showPopup = false;
+      console.log(data.userId);
     }
   }
 };

@@ -1,3 +1,4 @@
 import segmentFilter from "./segment";
+import { msisdnFormatFilter } from "./msisdnFormat";
 
-export default { segmentFilter };
+export default { segmentFilter, msisdnFormatFilter };

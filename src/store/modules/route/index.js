@@ -9,7 +9,7 @@ const state = {
   didCreateRoute: false,
   didPersistRouteDetail: false,
   route: {},
-  routeDetail: {}
+  routeDetail: { response: "" }
 };
 
 export default {
