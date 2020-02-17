@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
-  >
-    <div>
+  <div class="flex flex-col overflow-auto flex-grow">
+    <div class="w-full h-full px-6 py-8 flex-grow bg-gray-100">
       <img
         class="float-left cursor-pointer"
         src="@/assets/images/arrow-left.svg"
@@ -21,9 +19,9 @@
         />
         <h2 class="text-2xl text-primary font-bold">{{title}}</h2>
       </div>
-    </div>
 
-    <slot></slot>
+        <slot></slot>
+    </div>
   </div>
 </template>
 
