@@ -8,6 +8,7 @@
     <popup
       v-show="showPopup"
       v-on:cancel="showPopup = false"
+      :data="popupData"
       title="Deseja excluir essa rota?"
       message="Essa mudança afetará todas as aplicações utilizando a mesma."
     ></popup>
@@ -19,7 +20,7 @@
     >Falha ao recuperar rotas, Toque para atualizar!</h4>
 
     <h4
-      v-show="noRouteResult && !hasError"
+      v-show="canShowNoRoutes"
       class="text-xl text-primary mb-8 text-center"
     >Nenhuma rota encontrada!</h4>
 
@@ -60,7 +61,8 @@ export default {
   },
   data() {
     return {
-      showPopup: false
+      showPopup: false,
+      popupData: {}
     };
   },
   computed: {
@@ -73,11 +75,15 @@ export default {
     filteredRoutes: function filteredRoutes() {
       return this.routes.filter(route => route.path.includes(this.searchTerm));
     },
-    noRouteResult: function noRouteResult() {
-      return this.filteredRoutes.length === 0;
-    },
     formattedMsisdn: function formattedMsisdn() {
       return formatMsisdn(this.$route.params.msisdn);
+    },
+    canShowNoRoutes: function canShowNoRoutes() {
+      if (this.loading || this.hasError) return false;
+
+      const hasNoRoutesToShow = this.filteredRoutes.length === 0;
+
+      return hasNoRoutesToShow;
     }
   },
   mounted() {
@@ -97,9 +103,10 @@ export default {
     addRoute: function addRoute() {
       this.$router.push({ name: "route" });
     },
-    deleteRoute: function deleteRoute() {
+    deleteRoute: function deleteRoute(routeId) {
       this.showPopup = true;
-    }
+      this.popupData = { routeId };
+    },
   }
 };
 </script>

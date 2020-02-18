@@ -1,4 +1,4 @@
-import { showSuccess, showApiErrors } from "@/util/toastManager";
+import { showSuccess, showApiErrors, showError } from "@/util/toastManager";
 import { asyncHandler } from "@/util/vuexAsync";
 import { RepositoryFactory } from "@/api/repositoryFactory";
 const SegmentRepository = RepositoryFactory.segment;
@@ -73,6 +73,27 @@ const cleanState = async context => {
   context.commit("SET_SUB_SEGMENTS", []);
 };
 
+const deleteUser = async (context, payload) => {
+  asyncHandler(context, async () => {
+    if (!payload.userId) return;
+
+    const response = await UserRepository.delete(payload.userId);
+
+    if (response.data) {
+      const currentUsers = [...context.state.users];
+      const userIndexToRemove = currentUsers.findIndex(user => user.id === payload.userId);
+      const filteredUsers = [
+        ...currentUsers.splice(0, userIndexToRemove),
+        ...currentUsers.splice(userIndexToRemove + 1)
+      ];
+
+      context.commit("SET_USERS", filteredUsers);
+    } else {
+      showError("Falha ao excluir usuário!");
+    }
+  });
+};
+
 export default {
   getUsers,
   getUser,
@@ -80,5 +101,6 @@ export default {
   setUser,
   fetchSegments,
   fetchSubSegments,
-  cleanState
+  cleanState,
+  deleteUser
 };

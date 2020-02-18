@@ -10,5 +10,8 @@ export default {
   },
   update(routeDetail) {
     return repository.put(`${resource}`, { routeDetail });
+  },
+  delete(routeDetailId) {
+    return repository.put(`${resource}${routeDetailId}`);
   }
 };

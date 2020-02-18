@@ -16,7 +16,7 @@
     ></popup>
 
     <h4
-      v-show="noRouteResult && !hasError"
+      v-show="canShowNoUsers"
       class="text-xl text-primary mb-8 text-center"
     >Nenhum usuário encontrado!</h4>
 
@@ -72,8 +72,12 @@ export default {
     filteredUsers: function filteredUsers() {
       return this.users.filter(user => user.msisdn.includes(this.searchTerm));
     },
-    noRouteResult: function noRouteResult() {
-      return this.filteredUsers.length === 0;
+    canShowNoUsers: function canShowNoUsers() {
+      if (this.loading || this.hasError) return false;
+
+      const hasNoUsersToShow = this.filteredUsers.length === 0;
+
+      return hasNoUsersToShow;
     }
   },
   mounted() {
@@ -101,7 +105,8 @@ export default {
     },
     confirmDeleteUser: function confirmDeleteUser(data) {
       this.showPopup = false;
-      console.log(data.userId);
+
+      this.$store.dispatch("user/deleteUser", { userId: data.userId });
     }
   }
 };
