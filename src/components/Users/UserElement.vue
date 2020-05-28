@@ -3,9 +3,9 @@
     class="shadow user-card flex w-full justify-between items-center bg-white rounded p-10 select-none relative cursor-pointer"
     v-on:click.self="$emit('view', $event.target.value)"
   >
-    <span
+    <!-- <span
       class="absolute top-0 left-0 bg-indigo-500 text-white uppercase px-2 py-1 text-xs font-bold"
-    >{{segment}}</span>
+    >{{segment}}</span> -->
 
     <div class="flex flex-col" v-on:click="$emit('view', $event.target.value)">
       <span>{{msisdn}}</span>
@@ -24,7 +24,7 @@ export default {
   name: "UserElement",
   props: {
     msisdn: String,
-    segment: String,
+    // segment: String,
     plan: String,
     userId: Number
   }

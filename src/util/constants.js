@@ -1,6 +1,6 @@
 const constants = {
-  baseDomain: "https://mockin.app:8443",
-  // baseDomain: "http://localhost:4000",
+  // baseDomain: "https://mockin.app",
+  baseDomain: "http://localhost:4000",
   apiPath: "/api/"
 };
 

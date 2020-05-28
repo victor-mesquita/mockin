@@ -11,9 +11,9 @@
           >Ativo em</span>
           <a
             class="font-semibold mr-2 text-left flex-auto"
-            :href="`${baseDomain}${form.route.path}`"
+            :href="`${baseDomain}${apiPath}${form.route.path}`"
             target="_blank"
-          >({{form.route.httpMethod}}) {{`${baseDomain}${form.route.path}`}}</a>
+          >({{form.route.httpMethod}}) {{`${baseDomain}${apiPath}${form.route.path}`}}</a>
         </div>
       </div>
     </div>
@@ -106,7 +106,8 @@ export default {
   data() {
     return {
       form: { routeDetail: { response: "" }, route: {} },
-      baseDomain: constants.baseDomain
+      baseDomain: constants.baseDomain,
+      apiPath: constants.apiPath
     };
   },
   validations: {

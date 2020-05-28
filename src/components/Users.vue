@@ -29,7 +29,6 @@
           :key="user.msisdn"
           :user-id="user.id"
           :msisdn="user.msisdn | msisdnFormat"
-          :segment="user.segment.name"
           :plan="user.name"
           v-on:view="viewUser(user)"
           v-on:edit="editUser(user)"

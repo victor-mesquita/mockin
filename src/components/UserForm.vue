@@ -3,7 +3,7 @@
     <div class="w-full h-full">
       <form @submit.prevent="submit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="flex">
-          <Select
+          <!-- <Select
             class="md:w-1/3 px-3 mb-6"
             label="Segmento"
             id-property="id"
@@ -12,7 +12,7 @@
             :model.sync="user.segmentId"
             :disabled="segments.length === 0"
             :has-error="$v.user.segmentId.$error"
-          ></Select>
+          ></Select> -->
 <!--
           <Select
             class="md:w-1/3 px-3 mb-6"
@@ -60,12 +60,10 @@ import { TheMask } from "vue-the-mask";
 import { required, minLength } from "vuelidate/lib/validators";
 import store from "@/store";
 import Container from "@/components/Common/Container";
-import Select from "@/components/Common/Select";
 
 export default {
   name: "UserForm",
   components: {
-    Select,
     TheMask,
     Container
   },
@@ -76,25 +74,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      segments: "user/segments",
-      subSegments: "user/subSegments",
       persistedUser: "user/user"
     })
   },
   validations: {
     user: {
-      segmentId: { required },
       msisdn: { required, min: minLength(10) }
     }
   },
   watch: {
-    "user.segmentId": function segmentId(selectedSegment) {
-      if (!selectedSegment) return;
-
-      this.$store.dispatch("user/fetchSubSegments", {
-        segmentId: selectedSegment
-      });
-    },
     persistedUser() {
       this.user = { ...this.persistedUser };
     }
@@ -116,11 +104,10 @@ export default {
     this.$store.dispatch("global/hideSearch", false);
   },
   beforeRouteEnter(to, from, next) {
-    const fetchSegments = store.dispatch("user/fetchSegments");
     const { id } = to.params;
     const fetchUser = store.dispatch("user/getUser", id);
 
-    Promise.all([fetchSegments, fetchUser]).then(() => {
+    Promise.all([fetchUser]).then(() => {
       next();
     });
   },
