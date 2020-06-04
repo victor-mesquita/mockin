@@ -6,8 +6,8 @@ export default {
   get(routeId) {
     return repository.get(`${routeResource}${routeId}`);
   },
-  list() {
-    return repository.get(`${routeResource}`);
+  list(msisdn) {
+    return repository.get(`${routeResource}`, { params: { msisdn } });
   },
   create(route) {
     return repository.post(`${routeResource}`, { route });

@@ -8,7 +8,6 @@
     <popup
       v-show="showPopup"
       v-on:cancel="showPopup = false"
-      v-on:confirm="confirmDeleteRoute"
       :data="popupData"
       title="Deseja excluir essa rota?"
       message="Essa mudança afetará todas as aplicações utilizando a mesma."
@@ -88,8 +87,7 @@ export default {
     }
   },
   mounted() {
-    const { msisdn } = this.$route.params;
-    this.$store.dispatch("route/getRoutes", { msisdn });
+    this.$store.dispatch("route/getRoutes");
 
     this.$store.dispatch("global/setPage", {
       pageName: "Rotas"
@@ -97,8 +95,7 @@ export default {
   },
   methods: {
     fetchRoutes: function fetchRoutes() {
-      const { msisdn } = this.$route.params;
-      this.$store.dispatch("route/getRoutes", { msisdn });
+      this.$store.dispatch("route/getRoutes");
     },
     viewRoute: function viewRoute(route) {
       this.$router.push({ name: "route", params: { id: route.id } });
@@ -110,11 +107,6 @@ export default {
       this.showPopup = true;
       this.popupData = { routeId };
     },
-    confirmDeleteRoute: function confirmDeleteRoute(data) {
-      this.showPopup = false;
-
-      this.$store.dispatch("user/deleteRoute", { userId: data.userId });
-    }
   }
 };
 </script>

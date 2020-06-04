@@ -5,14 +5,14 @@
     >{{httpMethod}}</span>
     <span class="cursor-pointer" v-on:click.self="$emit('view', $event.target.value)">{{path}}</span>
 
-    <!-- <div class="flex w-16 justify-between">
+    <div class="flex w-16 justify-between">
       <img
         src="@/assets/images/trash.svg"
         alt="Excluir rota"
         class="cursor-pointer"
         v-on:click="$emit('delete', $event.target.value)"
       />
-    </div> -->
+    </div>
   </div>
 </template>
 

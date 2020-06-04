@@ -1,7 +1,7 @@
 <template>
   <container title="Nova rota" :can-add="false" :can-back="true">
     <div>
-      <div v-if="form.routeDetail.active" class="text-center w-full animated pulse mb-8">
+      <div v-if="form.route.active" class="text-center w-full animated pulse mb-8">
         <div
           class="p-2 bg-green-800 items-center text-green-100 leading-none lg:rounded-full flex lg:inline-flex"
           role="alert"
@@ -11,9 +11,9 @@
           >Ativo em</span>
           <a
             class="font-semibold mr-2 text-left flex-auto"
-            :href="`${baseDomain}${apiPath}${form.route.path}`"
+            :href="`${baseDomainMocks}${form.route.path}`"
             target="_blank"
-          >({{form.route.httpMethod}}) {{`${baseDomain}${apiPath}${form.route.path}`}}</a>
+          >({{form.route.httpMethod}}) {{`${baseDomainMocks}${form.route.path}`}}</a>
         </div>
       </div>
     </div>
@@ -33,7 +33,6 @@
               v-model="form.route.path"
               placeholder="/exemplo/create/"
               :required="true"
-              :disabled="form.route.id"
               :class="{ 'border-red-500': $v.form.route.path.$error }"
             />
           </div>
@@ -46,8 +45,8 @@
             id-property="name"
             value-property="name"
             :data="statusCodes"
-            :model.sync="form.routeDetail.statusCode"
-            :has-error="$v.form.routeDetail.statusCode.$error"
+            :model.sync="form.route.statusCode"
+            :has-error="$v.form.route.statusCode.$error"
           ></Select>
           <Select
             class="md:w-1/3 px-3"
@@ -69,7 +68,7 @@
             <ace-editor
               name="route-response"
               id="route-response"
-              v-model="form.routeDetail.response"
+              v-model="form.route.response"
               @init="editorInit"
               lang="json"
               theme="crimson_editor"
@@ -105,17 +104,15 @@ export default {
   name: "RouteForm",
   data() {
     return {
-      form: { routeDetail: { response: "" }, route: {} },
-      baseDomain: constants.baseDomain,
+      form: { route: { response: "" } },
+      baseDomainMocks: constants.baseDomainMocks,
       apiPath: constants.apiPath
     };
   },
   validations: {
     form: {
-      routeDetail: {
-        statusCode: { required }
-      },
       route: {
+        statusCode: { required },
         path: { required, max: maxLength(500) },
         httpMethod: { required }
       }
@@ -126,8 +123,7 @@ export default {
       userId: "user/selectedUser",
       httpMethods: "global/httpMethods",
       statusCodes: "global/statusCodes",
-      persistedRoute: "route/route",
-      persistedRouteDetail: "route/routeDetail"
+      persistedRoute: "route/route"
     })
   },
   mounted() {
@@ -148,16 +144,22 @@ export default {
 
       if (this.$v.form.$error) return;
 
-      const route = { ...this.form.route };
-      const routeDetail = {
-        ...this.form.routeDetail,
+      // eslint-disable-next-line operator-linebreak
+      const path =
+        this.form.route.path[0] !== "/"
+          ? `/${this.form.route.path}`
+          : this.form.route.path;
+
+      this.form.route = { ...this.form.route, path };
+      const route = {
+        ...this.form.route,
         userId: this.userId,
-        active: true
+        active: true,
+        path
       };
 
       this.$store.dispatch("route/createRoute", {
-        route,
-        routeDetail
+        route
       });
     },
     editorInit: function editorInit() {
@@ -174,9 +176,6 @@ export default {
   watch: {
     persistedRoute() {
       this.form = { ...this.form, route: this.persistedRoute };
-    },
-    persistedRouteDetail() {
-      this.form = { ...this.form, routeDetail: this.persistedRouteDetail };
     }
   },
   destroyed() {
@@ -184,15 +183,14 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     const { id } = to.params;
-    const userId = store.state.user.selectedUser;
+    if (!id) {
+      next();
+      return;
+    }
 
     const fetchRoute = store.dispatch("route/getRoute", id);
-    const fetchRouteDetail = store.dispatch("route/getRouteDetail", {
-      routeId: id,
-      userId
-    });
 
-    Promise.all([fetchRoute, fetchRouteDetail]).then(() => {
+    Promise.all([fetchRoute]).then(() => {
       next();
     });
   }

@@ -33,8 +33,8 @@ export default {
   data: function headerData() {
     return {
       menus: [
-        // { name: "Home", link: "/" },
-        // { name: "Clonar massa", link: "/clone" },
+        { name: "Home", link: "/" },
+        { name: "Acessos", link: "/", soon: true },
         // { name: "Editor KPS", link: "/kps-editor" }
       ]
     };

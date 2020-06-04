@@ -2,29 +2,6 @@
   <container title="Criar massa" :can-back="true">
     <div class="w-full h-full">
       <form @submit.prevent="submit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div class="flex">
-          <!-- <Select
-            class="md:w-1/3 px-3 mb-6"
-            label="Segmento"
-            id-property="id"
-            value-property="name"
-            :data="segments"
-            :model.sync="user.segmentId"
-            :disabled="segments.length === 0"
-            :has-error="$v.user.segmentId.$error"
-          ></Select> -->
-<!--
-          <Select
-            class="md:w-1/3 px-3 mb-6"
-            label="Sub Segmento"
-            id-property="id"
-            value-property="name"
-            :data="subSegments"
-            :model.sync="user.subSegmentId"
-            v-show="subSegments.length > 0"
-          ></Select> -->
-        </div>
-
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
           <label
             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -37,7 +14,7 @@
             type="text"
             placeholder="Número"
             v-model="user.msisdn"
-            :mask="['(##) ####-####', '(##) #####-####']"
+            :mask="['(##) #####-####']"
           />
         </div>
 
@@ -105,6 +82,11 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     const { id } = to.params;
+    if (!id) {
+      next();
+      return;
+    }
+
     const fetchUser = store.dispatch("user/getUser", id);
 
     Promise.all([fetchUser]).then(() => {

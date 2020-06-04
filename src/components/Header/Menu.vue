@@ -1,6 +1,6 @@
 <template>
   <div class="sm:flex items-center">
-    <MenuItem v-for="menu in items" :key="menu.name" :name="menu.name" :link="menu.link" />
+    <MenuItem v-for="menu in items" :key="menu.name" :name="menu.name" :link="menu.link" :soon="menu.soon" />
   </div>
 </template>
 
