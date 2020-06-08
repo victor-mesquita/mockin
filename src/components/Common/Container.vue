@@ -13,12 +13,8 @@
         <h2 class="text-2xl text-primary font-bold">{{title}}</h2>
       </div>
 
-      <div class="flex mb-8 justify-start">
-        <div
-          class="flex cursor-pointer"
-          v-if="canAdd"
-          v-on:click="$emit('add', $event.target.value)"
-        >
+      <div v-if="canAdd" class="flex mb-8 justify-start">
+        <div class="flex cursor-pointer" v-on:click="$emit('add', $event.target.value)">
           <img class="mr-2 w-5" src="@/assets/images/circle-plus.svg" :alt="`Adicionar ${title}`" />
           <p class="text-1xl">Adicionar</p>
         </div>
