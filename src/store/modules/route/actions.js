@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { RepositoryFactory } from "@/api/repositoryFactory";
 import { asyncHandler } from "@/util/vuexAsync";
-import { showApiErrors } from "@/util/toastManager";
+import { showApiErrors, showError } from "@/util/toastManager";
 const RouteRepository = RepositoryFactory.route;
 
 const getRoutes = async (context, payload) => {
@@ -49,8 +49,30 @@ const createRoute = async (context, payload) => {
   });
 };
 
+const deleteRoute = async (context, payload) => {
+  asyncHandler(context, async () => {
+    if (!payload.routeId) return;
+
+    const response = await RouteRepository.delete(payload.routeId);
+
+    if (response.data) {
+      const currentRoutes = [...context.state.routes];
+      const routeIndexToRemove = currentRoutes.findIndex(route => route.id === payload.routeId);
+      const filteredRoutes = [
+        ...currentRoutes.splice(0, routeIndexToRemove),
+        ...currentRoutes.splice(routeIndexToRemove + 1)
+      ];
+
+      context.commit("ROUTES_UPDATED", filteredRoutes);
+    } else {
+      showError("Falha ao excluir usuário!");
+    }
+  });
+};
+
 export default {
   getRoutes,
   createRoute,
-  getRoute
+  getRoute,
+  deleteRoute
 };

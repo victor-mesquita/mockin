@@ -36,7 +36,7 @@
           :httpMethod="route.httpMethod"
           :path="route.path"
           v-on:view="viewRoute(route)"
-          v-on:delete="deleteRoute()"
+          v-on:delete="deleteRoute(route.id)"
         ></RouteElement>
       </div>
     </div>
@@ -113,7 +113,7 @@ export default {
     confirmDeleteRoute: function confirmDeleteRoute(data) {
       this.showPopup = false;
 
-      this.$store.dispatch("user/deleteRoute", { userId: data.userId });
+      this.$store.dispatch("route/deleteRoute", { routeId: data.routeId });
     }
   }
 };
