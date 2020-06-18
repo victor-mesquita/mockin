@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "NODE_ENV=production yarn build && node deploy.js"
+    "deploy": "NODE_ENV=production npm run build && node deploy.js"
   },
   "dependencies": {
     "animate.css": "^3.7.2",
