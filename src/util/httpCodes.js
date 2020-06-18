@@ -51,7 +51,6 @@ const httpCodes = [
   { name: "429" },
   { name: "431" },
   { name: "500" },
-  { name: "500" },
   { name: "501" },
   { name: "502" },
   { name: "503" },
