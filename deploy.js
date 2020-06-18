@@ -13,4 +13,3 @@ const deployer = new Deployer(options);
 deployer.deployRelease(() => {
   console.log("Deploy successful!");
 });
-

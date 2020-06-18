@@ -6,8 +6,17 @@
       class="text-xl text-primary mb-8 text-center cursor-pointer"
     >Falha ao recuperar massas, Toque para atualizar!</h4>
 
+    <popup
+      v-show="showPopup"
+      v-on:cancel="showPopup = false"
+      v-on:confirm="confirmDeleteUser"
+      :data="popupData"
+      title="Deseja execluir essa massa?"
+      message="Essa mudança afetará todas as rotas associadas a essa massa."
+    ></popup>
+
     <h4
-      v-show="noRouteResult && !hasError"
+      v-show="canShowNoUsers"
       class="text-xl text-primary mb-8 text-center"
     >Nenhum usuário encontrado!</h4>
 
@@ -18,11 +27,12 @@
         <UserElement
           v-for="user in filteredUsers"
           :key="user.msisdn"
-          :msisdn="user.msisdn"
-          :segment="user.segment.name"
+          :user-id="user.id"
+          :msisdn="user.msisdn | msisdnFormat"
           :plan="user.name"
           v-on:view="viewUser(user)"
           v-on:edit="editUser(user)"
+          v-on:delete="deleteUser"
         ></UserElement>
       </div>
     </div>
@@ -33,6 +43,7 @@
 import { mapGetters } from "vuex";
 
 import Container from "@/components/Common/Container";
+import Popup from "@/components/Common/Popup";
 import UserElement from "./Users/UserElement";
 import UserLoading from "./Users/UserLoading";
 
@@ -41,7 +52,14 @@ export default {
   components: {
     UserElement,
     UserLoading,
-    Container
+    Container,
+    Popup
+  },
+  data() {
+    return {
+      showPopup: false,
+      popupData: {}
+    };
   },
   computed: {
     ...mapGetters({
@@ -53,8 +71,12 @@ export default {
     filteredUsers: function filteredUsers() {
       return this.users.filter(user => user.msisdn.includes(this.searchTerm));
     },
-    noRouteResult: function noRouteResult() {
-      return this.filteredUsers.length === 0;
+    canShowNoUsers: function canShowNoUsers() {
+      if (this.loading || this.hasError) return false;
+
+      const hasNoUsersToShow = this.filteredUsers.length === 0;
+
+      return hasNoUsersToShow;
     }
   },
   mounted() {
@@ -75,6 +97,15 @@ export default {
     },
     editUser: function editUser(user) {
       this.$router.push({ name: "user", params: { id: user.id } });
+    },
+    deleteUser: function deleteUser(userId) {
+      this.showPopup = true;
+      this.popupData = { userId };
+    },
+    confirmDeleteUser: function confirmDeleteUser(data) {
+      this.showPopup = false;
+
+      this.$store.dispatch("user/deleteUser", { userId: data.userId });
     }
   }
 };

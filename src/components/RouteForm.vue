@@ -1,13 +1,21 @@
 <template>
-  <div
-    class="mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
-  >
+  <container title="Nova rota" :can-add="false" :can-back="true">
     <div>
-      <a @click="$router.go(-1)" class="cursor-pointer">
-        <img class="float-left" src="@/assets/images/arrow-left.svg" alt="Voltar para rotas" />
-      </a>
-
-      <h2 class="text-2xl text-primary font-bold mb-8 text-center">Nova rota</h2>
+      <div v-if="form.route.active" class="text-center w-full animated pulse mb-8">
+        <div
+          class="p-2 bg-green-800 items-center text-green-100 leading-none lg:rounded-full flex lg:inline-flex"
+          role="alert"
+        >
+          <span
+            class="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs font-bold mr-3"
+          >Ativo em</span>
+          <a
+            class="font-semibold mr-2 text-left flex-auto"
+            :href="`${baseDomainMocks}${form.route.path}`"
+            target="_blank"
+          >({{form.route.httpMethod}}) {{`${baseDomainMocks}${form.route.path}`}}</a>
+        </div>
+      </div>
     </div>
 
     <div class="w-full h-full">
@@ -22,21 +30,52 @@
               class="w-full block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               name="route-path"
               id="route-path"
-              v-model="route.path"
+              v-model="form.route.path"
               placeholder="/exemplo/create/"
               :required="true"
-              :class="{ 'border-red-500': $v.route.path.$error }"
+              :class="{ 'border-red-500': $v.form.route.path.$error }"
             />
           </div>
+        </div>
+
+        <div class="flex items-center mb-6">
+          <Select
+            class="md:w-1/3 px-3"
+            label="Status code"
+            id-property="name"
+            value-property="name"
+            :data="statusCodes"
+            :model.sync="form.route.statusCode"
+            :has-error="$v.form.route.statusCode.$error"
+          ></Select>
           <Select
             class="md:w-1/3 px-3"
             label="Http Method"
             id-property="name"
             value-property="name"
             :data="httpMethods"
-            :model.sync="route.httpMethod"
-            :has-error="$v.route.httpMethod.$error"
+            :model.sync="form.route.httpMethod"
+            :has-error="$v.form.route.httpMethod.$error"
           ></Select>
+        </div>
+
+        <div class="flex items-center mb-6">
+          <div class="w-full px-3">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              for="route-response"
+            >Response</label>
+            <ace-editor
+              name="route-response"
+              id="route-response"
+              v-model="form.route.response"
+              @init="editorInit"
+              lang="json"
+              theme="crimson_editor"
+              width="100%"
+              height="200"
+            ></ace-editor>
+          </div>
         </div>
 
         <div class="flex items-center mt-10">
@@ -49,47 +88,111 @@
         </div>
       </form>
     </div>
-  </div>
+  </container>
 </template>
 
 <script>
+import AceEditor from "vue2-ace-editor";
 import { mapGetters } from "vuex";
 import { required, maxLength } from "vuelidate/lib/validators";
-import Select from "./Common/Select";
+import constants from "@/util/constants";
+import Select from "@/components/Common/Select";
+import Container from "@/components/Common/Container";
+import store from "@/store";
 
 export default {
   name: "RouteForm",
   data() {
     return {
-      route: {}
+      form: { route: { response: "" } },
+      baseDomainMocks: constants.baseDomainMocks,
+      apiPath: constants.apiPath
     };
   },
   validations: {
-    route: {
-      httpMethod: { required },
-      path: { required, max: maxLength(500) }
+    form: {
+      route: {
+        statusCode: { required },
+        path: { required, max: maxLength(500) },
+        httpMethod: { required }
+      }
     }
   },
   computed: {
     ...mapGetters({
-      httpMethods: "global/httpMethods"
+      userId: "user/selectedUser",
+      httpMethods: "global/httpMethods",
+      statusCodes: "global/statusCodes",
+      persistedRoute: "route/route"
     })
   },
   mounted() {
+    this.goBackToHomeUnlessExistUser();
+
     this.$store.dispatch("global/fetchHttpMethods");
+    this.$store.dispatch("global/fetchHttpStatusCode");
+    this.$store.dispatch("global/hideSearch", true);
   },
   components: {
-    Select
+    Select,
+    AceEditor,
+    Container
   },
   methods: {
     submit() {
-      this.$v.route.$touch();
-      if (this.$v.route.$error) return;
+      this.$v.form.$touch();
+
+      if (this.$v.form.$error) return;
+
+      // eslint-disable-next-line operator-linebreak
+      const path =
+        this.form.route.path[0] !== "/"
+          ? `/${this.form.route.path}`
+          : this.form.route.path;
+
+      this.form.route = { ...this.form.route, path };
+      const route = {
+        ...this.form.route,
+        userId: this.userId,
+        active: true,
+        path
+      };
 
       this.$store.dispatch("route/createRoute", {
-        route: this.route
+        route
       });
+    },
+    editorInit: function editorInit() {
+      require("brace/ext/language_tools");
+      require("brace/mode/json");
+      require("brace/theme/crimson_editor");
+    },
+    goBackToHomeUnlessExistUser: function goBackToHomeUnlessExistUser() {
+      if (!this.userId) {
+        this.$router.go(-2);
+      }
     }
+  },
+  watch: {
+    persistedRoute() {
+      this.form = { ...this.form, route: this.persistedRoute };
+    }
+  },
+  destroyed() {
+    this.$store.dispatch("global/hideSearch", false);
+  },
+  beforeRouteEnter(to, from, next) {
+    const { id } = to.params;
+    if (!id) {
+      next();
+      return;
+    }
+
+    const fetchRoute = store.dispatch("route/getRoute", id);
+
+    Promise.all([fetchRoute]).then(() => {
+      next();
+    });
   }
 };
 </script>

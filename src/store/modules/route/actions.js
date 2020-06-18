@@ -1,13 +1,12 @@
 import Vue from "vue";
 import { RepositoryFactory } from "@/api/repositoryFactory";
 import { asyncHandler } from "@/util/vuexAsync";
-import { showApiErrors } from "@/util/toastManager";
+import { showApiErrors, showError } from "@/util/toastManager";
 const RouteRepository = RepositoryFactory.route;
-const RouteDetailRepository = RepositoryFactory.routeDetail;
 
-const getRoutes = async context => {
+const getRoutes = async (context, payload) => {
   asyncHandler(context, async () => {
-    const response = await RouteRepository.list();
+    const response = await RouteRepository.list(payload.msisdn);
 
     const { routes } = response.data;
 
@@ -28,11 +27,18 @@ const getRoute = async (context, routeId) => {
 const createRoute = async (context, payload) => {
   asyncHandler(context, async () => {
     try {
-      const response = await RouteRepository.create(payload.route);
+      const routeDoNotExists = !payload.route.id;
+      let persistedRoute = null;
 
-      const { route } = response.data;
+      if (routeDoNotExists) {
+        const response = await RouteRepository.create(payload.route);
+        persistedRoute = response.data.route;
+      } else {
+        const response = await RouteRepository.update(payload.route);
+        persistedRoute = response.data.route;
+      }
 
-      context.commit("ROUTE_CREATED", route != null);
+      context.commit("ROUTE_CREATED", persistedRoute != null);
 
       Vue.toasted.success("Rota criada com sucesso!").goAway(1500);
     } catch (error) {
@@ -43,34 +49,23 @@ const createRoute = async (context, payload) => {
   });
 };
 
-const getRouteDetail = async (context, { userId, routeId }) => {
+const deleteRoute = async (context, payload) => {
   asyncHandler(context, async () => {
-    const response = await RouteDetailRepository.get(userId, routeId);
+    if (!payload.routeId) return;
 
-    const { routeDetail } = response.data;
+    const response = await RouteRepository.delete(payload.routeId);
 
-    context.commit("ROUTE_DETAIL_FETCHED", routeDetail);
-  });
-};
+    if (response.data) {
+      const currentRoutes = [...context.state.routes];
+      const routeIndexToRemove = currentRoutes.findIndex(route => route.id === payload.routeId);
+      const filteredRoutes = [
+        ...currentRoutes.splice(0, routeIndexToRemove),
+        ...currentRoutes.splice(routeIndexToRemove + 1)
+      ];
 
-const persistRouteDetail = async (context, payload) => {
-  asyncHandler(context, async () => {
-    try {
-      let response = {};
-
-      if (payload.id) {
-        response = await RouteDetailRepository.update(payload);
-      } else {
-        response = await RouteDetailRepository.create(payload);
-      }
-      const { routeDetail } = response.data;
-
-      context.commit("ROUTE_DETAIL_FETCHED", routeDetail);
-      Vue.toasted.success("Rota criada com sucesso!").goAway(1500);
-    } catch (error) {
-      if (error.response && error.response.data) {
-        showApiErrors(error.response.data.errors);
-      }
+      context.commit("ROUTES_UPDATED", filteredRoutes);
+    } else {
+      showError("Falha ao excluir usuário!");
     }
   });
 };
@@ -79,6 +74,5 @@ export default {
   getRoutes,
   createRoute,
   getRoute,
-  getRouteDetail,
-  persistRouteDetail
+  deleteRoute
 };

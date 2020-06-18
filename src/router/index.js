@@ -25,19 +25,14 @@ export default new Router({
       component: require('@/components/RouteForm').default,
     },
     {
-      path: '/route-detail/:routeId/',
-      name: 'route-detail',
-      component: require('@/components/RouteDetailForm').default,
+      path: '/manage-routes/',
+      name: 'manage-routes',
+      component: require('@/components/ManageRoute').default,
     },
     {
-      path: '/kps-editor',
-      name: 'kpsEditor',
-      component: require('@/components/KpsEditor').default,
-    },
-    {
-      path: '/clone/',
-      name: 'cloneUser',
-      component: require('@/components/CloneUser').default,
+      path: '/manage-routes/:id?',
+      name: 'manage-routes',
+      component: require('@/components/ManageRouteForm').default,
     },
     {
       path: '/user/:id?',

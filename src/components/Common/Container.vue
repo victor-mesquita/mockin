@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="mx-auto px-6 py-8 w-full min-h-screen flex-grow bg-gray-100 animated slideInUp faster"
-  >
-    <div>
+  <div class="flex flex-col overflow-auto flex-grow">
+    <div class="w-full h-full px-6 py-8 flex-grow bg-gray-100">
       <img
         class="float-left cursor-pointer"
         src="@/assets/images/arrow-left.svg"
@@ -12,18 +10,18 @@
       />
 
       <div class="flex mb-8 justify-center">
-        <img
-          v-if="canAdd"
-          class="mr-2 w-5 cursor-pointer"
-          src="@/assets/images/circle-plus.svg"
-          :alt="`Adicionar ${title}`"
-          v-on:click="$emit('add', $event.target.value)"
-        />
         <h2 class="text-2xl text-primary font-bold">{{title}}</h2>
       </div>
-    </div>
 
-    <slot></slot>
+      <div v-if="canAdd" class="flex mb-8 justify-start">
+        <div class="flex cursor-pointer" v-on:click="$emit('add', $event.target.value)">
+          <img class="mr-2 w-5" src="@/assets/images/circle-plus.svg" :alt="`Adicionar ${title}`" />
+          <p class="text-1xl">Adicionar</p>
+        </div>
+      </div>
+
+      <slot></slot>
+    </div>
   </div>
 </template>
 
