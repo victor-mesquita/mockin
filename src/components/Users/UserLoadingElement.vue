@@ -1,9 +1,8 @@
 <template>
-  <vue-content-loading class="user-card">
-    <rect width="90" height="22" />
-    <rect x="50" y="40" rx="4" ry="4" width="130" height="15" />
-    <rect x="55" y="65" rx="4" ry="4" width="50" height="10" />
-    <rect x="350" y="50"  width="25" height="25" />
+  <vue-content-loading :width="900" preserveAspectRatio="xMaxYMid slice" class="user-card">
+    <rect x="10" y="60" rx="4" ry="4" width=120 height="15" />
+    <rect x="830" y="55" width="20" height="20" />
+    <rect x="860" y="55" width="20" height="20" />
   </vue-content-loading>
 </template>
 
@@ -19,13 +18,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 1024px) {
-  .user-card {
-    width: 31.333333%;
-    margin-left: 1.25rem;
-  }
-}
 .user-card {
-  margin-bottom: 1.25rem;
+  width: 100%;
+  height: 60px;
+  border-bottom: #cbd5e0 1px solid;
 }
 </style>

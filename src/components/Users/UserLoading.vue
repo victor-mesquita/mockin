@@ -1,8 +1,7 @@
 <template>
-  <div class="flex flex-col lg:flex-row lg:flex-wrap mt-5">
-    <UserLoadingElement></UserLoadingElement>
-    <UserLoadingElement></UserLoadingElement>
-    <UserLoadingElement></UserLoadingElement>
+  <div class="flex flex-col lg:flex-row lg:flex-wrap">
+    <UserLoadingElement class="mt-2"></UserLoadingElement>
+    <UserLoadingElement class="mt-2"></UserLoadingElement>
   </div>
 </template>
 
@@ -17,6 +16,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
