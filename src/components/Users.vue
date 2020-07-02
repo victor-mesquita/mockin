@@ -22,7 +22,7 @@
     </h4>
 
     <div v-show="!hasError">
-      <div v-if="!loading" class="flex flex-col">
+      <div v-if="!loading" class="flex flex-col mb-5">
         <UserElement
           class="mt-2"
           v-for="user in filteredUsers"

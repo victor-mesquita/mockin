@@ -28,7 +28,7 @@
     <div v-show="!hasError">
       <RouteLoading v-show="loading"></RouteLoading>
 
-      <div v-show="!loading" class="flex flex-col mt-5">
+      <div v-show="!loading" class="flex flex-col my-5">
         <RouteElement
           v-for="route in filteredRoutes"
           :key="route.id"
