@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col overflow-auto flex-grow">
-    <div class="w-full h-full px-6 py-8 flex-grow bg-gray-100">
+  <div class="flex flex-col h-full overflow-auto flex-grow">
+    <div class="w-full h-auto px-6 py-8 flex-grow bg-gray-100">
       <img
         class="float-left cursor-pointer"
         src="@/assets/images/arrow-left.svg"

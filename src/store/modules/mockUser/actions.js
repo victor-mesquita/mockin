@@ -3,44 +3,44 @@ import { asyncHandler } from "@/util/vuexAsync";
 import { RepositoryFactory } from "@/api/repositoryFactory";
 const SegmentRepository = RepositoryFactory.segment;
 const SubSegmentRepository = RepositoryFactory.subSegment;
-const UserRepository = RepositoryFactory.user;
+const MockUserRepository = RepositoryFactory.mockUser;
 
 const getUsers = async context => {
   asyncHandler(context, async () => {
-    const response = await UserRepository.list();
+    const response = await MockUserRepository.list();
 
-    const { users } = response.data;
+    // eslint-disable-next-line camelcase
+    const { mock_users } = response.data;
 
-    context.commit("SET_USERS", users);
+    context.commit("SET_USERS", mock_users);
   });
 };
 
 const getUser = async (context, userId) => {
   asyncHandler(context, async () => {
-    const response = await UserRepository.get(userId);
+    const response = await MockUserRepository.get(userId);
 
-    const { user } = response.data;
+    const { mockUser } = response.data;
 
-    context.commit("USER_FETCHED", user);
+    context.commit("USER_FETCHED", mockUser);
   });
 };
 
 const createUser = async (context, payload) => {
   asyncHandler(context, async () => {
     try {
+      console.log(payload.user.id);
       if (payload.user.id) {
-        await UserRepository.update(payload.user);
+        await MockUserRepository.update(payload.user);
       } else {
-        await UserRepository.create(payload.user);
+        await MockUserRepository.create(payload.user);
       }
 
       context.commit("SET_DID_CREATE_USER", true);
 
-      showSuccess("Usuário criado com sucesso!").goAway(1500);
+      showSuccess("Usuário criado com sucesso!");
     } catch (error) {
-      if (error.response && error.response.data) {
-        showApiErrors(error.response.data.errors);
-      }
+      showApiErrors(error);
     }
   });
 };
@@ -77,7 +77,7 @@ const deleteUser = async (context, payload) => {
   asyncHandler(context, async () => {
     if (!payload.userId) return;
 
-    const response = await UserRepository.delete(payload.userId);
+    const response = await MockUserRepository.delete(payload.userId);
 
     if (response.data) {
       const currentUsers = [...context.state.users];

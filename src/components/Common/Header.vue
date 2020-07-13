@@ -21,8 +21,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Search from "./Header/Search";
-import Menu from "./Header/Menu";
+import Search from "../Header/Search";
+import Menu from "../Header/Menu";
 
 export default {
   name: "app-header",
@@ -54,5 +54,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/styles/variables";
+@import "../../assets/styles/variables";
 </style>

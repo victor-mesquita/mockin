@@ -47,6 +47,7 @@ import Container from "@/components/Common/Container";
 import Popup from "@/components/Common/Popup";
 import UserElement from "./Users/UserElement";
 import UserLoading from "./Users/UserLoading";
+import routeNames from '../router/routes';
 
 export default {
   name: "users",
@@ -64,9 +65,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      users: "user/users",
-      loading: "user/fetching",
-      hasError: "user/hasError",
+      users: "mockUser/users",
+      loading: "mockUser/fetching",
+      hasError: "mockUser/hasError",
       searchTerm: "global/searchTerm"
     }),
     filteredUsers: function filteredUsers() {
@@ -81,7 +82,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("user/getUsers");
+    this.$store.dispatch("mockUser/getUsers");
 
     this.$store.dispatch("global/setPage", {
       pageName: "Massas"
@@ -89,15 +90,15 @@ export default {
   },
   methods: {
     fetchUsers: function fetchUsers() {
-      this.$store.dispatch("user/getUsers");
+      this.$store.dispatch("mockUser/getUsers");
     },
     viewUser: function viewUser(user) {
-      this.$store.dispatch("user/setUser", user.id);
+      this.$store.dispatch("mockUser/setUser", user.id);
 
-      this.$router.push({ name: "routes", params: { msisdn: user.msisdn } });
+      this.$router.push({ name: routeNames.routes, params: { msisdn: user.msisdn } });
     },
     editUser: function editUser(user) {
-      this.$router.push({ name: "user", params: { id: user.id } });
+      this.$router.push({ name: routeNames.userForm, params: { id: user.id } });
     },
     deleteUser: function deleteUser(userId) {
       this.showPopup = true;
@@ -106,7 +107,7 @@ export default {
     confirmDeleteUser: function confirmDeleteUser(data) {
       this.showPopup = false;
 
-      this.$store.dispatch("user/deleteUser", { userId: data.userId });
+      this.$store.dispatch("mockUser/deleteUser", { userId: data.userId });
     }
   }
 };

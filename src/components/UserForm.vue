@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      persistedUser: "user/user"
+      persistedUser: "mockUser/user"
     })
   },
   validations: {
@@ -84,7 +84,7 @@ export default {
       this.$v.user.$touch();
       if (this.$v.user.$error) return;
 
-      this.$store.dispatch("user/createUser", {
+      this.$store.dispatch("mockUser/createUser", {
         user: this.user
       });
     }
@@ -102,14 +102,14 @@ export default {
       return;
     }
 
-    const fetchUser = store.dispatch("user/getUser", id);
+    const fetchUser = store.dispatch("mockUser/getUser", id);
 
     Promise.all([fetchUser]).then(() => {
       next();
     });
   },
   async beforeRouteLeave(to, from, next) {
-    await store.dispatch("user/cleanState");
+    await store.dispatch("mockUser/cleanState");
     next();
   }
 };

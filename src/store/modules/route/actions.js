@@ -40,11 +40,9 @@ const createRoute = async (context, payload) => {
 
       context.commit("ROUTE_CREATED", persistedRoute != null);
 
-      Vue.toasted.success("Rota criada com sucesso!").goAway(1500);
+      Vue.toasted.success("Rota criada com sucesso!");
     } catch (error) {
-      if (error.response && error.response.data) {
-        showApiErrors(error.response.data.errors);
-      }
+      showApiErrors(error);
     }
   });
 };

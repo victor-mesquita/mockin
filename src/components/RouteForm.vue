@@ -140,7 +140,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      userId: "user/selectedUser",
+      mockUserId: "mockUser/selectedUser",
       httpMethods: "global/httpMethods",
       statusCodes: "global/statusCodes",
       persistedRoute: "route/route"
@@ -171,7 +171,7 @@ export default {
       this.form.route = { ...this.form.route, path };
       const route = {
         ...this.form.route,
-        userId: this.userId,
+        mockUserId: this.mockUserId,
         active: true,
         path
       };
@@ -186,7 +186,7 @@ export default {
       require("brace/theme/crimson_editor");
     },
     goBackToHomeUnlessExistUser: function goBackToHomeUnlessExistUser() {
-      if (!this.userId) {
+      if (!this.mockUserId) {
         this.$router.go(-2);
       }
     }

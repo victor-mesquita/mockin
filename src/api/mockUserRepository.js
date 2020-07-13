@@ -1,6 +1,6 @@
 import repository from "./repository";
 
-const resource = "/user/";
+const resource = "/mock-user/";
 export default {
   list() {
     return repository.get(`${resource}`);
@@ -11,11 +11,11 @@ export default {
   },
 
   create(user) {
-    return repository.post(`${resource}`, { user });
+    return repository.post(`${resource}`, { mock_user: user });
   },
 
   update(user) {
-    return repository.put(`${resource}`, { user });
+    return repository.put(`${resource}`, { mock_user: user });
   },
 
   delete(userId) {

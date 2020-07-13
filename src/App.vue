@@ -1,18 +1,12 @@
 <template>
   <div class="flex flex-col h-full" id="app">
-    <AppHeader></AppHeader>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import AppHeader from "./components/Header";
-
 export default {
-  name: "mockin",
-  components: {
-    AppHeader
-  }
+  name: "mockin"
 };
 </script>
 
