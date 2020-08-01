@@ -47,6 +47,18 @@ export default new Router({
       name: routeNames.registration,
       meta: { public: true },
       component: require('@/components/Registration').default
+    },
+    {
+      path: '/forget-password',
+      name: routeNames.forgetPassword,
+      meta: { public: true },
+      component: require('@/components/ForgetPassword').default
+    },
+    {
+      path: '/reset-password/:securityToken',
+      name: routeNames.resetPassword,
+      meta: { public: true },
+      component: require('@/components/ResetPassword').default
     }
   ],
 });

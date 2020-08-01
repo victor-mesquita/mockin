@@ -1,101 +1,59 @@
 <template>
-  <div
-    class="w-full h-auto px-6 py-8 flex-grow bg-gray-100 flex flex-col justify-center items-center"
-  >
-    <form @submit.prevent="submit" class="registration-form flex flex-col items-center">
-      <div class="text-purple-600 cursor-pointer flex items-center mb-6" to="/">
-        <img class="h-8 mr-2" src="@/assets/images/icons/128x128.png" alt="mockin" />
-        <span class="text-2xl">Mock-in</span>
-      </div>
-
-      <div class="flex w-full items-center">
-        <div class="mb-4 w-full px-3">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-            E-mail
-          </label>
-          <input
-            class="transition focus:outline-none border focus:bg-white focus:border-gray-300 placeholder-gray-600 rounded bg-gray-200 py-2 pr-4 pl-2 block w-full appearance-none leading-normal ds-input"
-            type="text"
-            placeholder="Digite seu e-mail"
-            autocomplete="off"
-            spellcheck="false"
-            dir="auto"
-            name="email"
-            v-model="user.email"
-            :class="{ 'border-red-500': $v.user.email.$error }"
-          />
-        </div>
-        <div class="mb-4 w-full px-3">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="nome">
-            Nome
-          </label>
-          <input
-            class="transition focus:outline-none border focus:bg-white focus:border-gray-300 placeholder-gray-600 rounded bg-gray-200 py-2 pr-4 pl-2 block w-full appearance-none leading-normal ds-input"
-            type="text"
-            placeholder="Digite seu nome"
-            autocomplete="off"
-            spellcheck="false"
-            dir="auto"
-            name="nome"
-            v-model="user.name"
-            :class="{ 'border-red-500': $v.user.name.$error }"
-          />
-        </div>
-      </div>
-
-      <div class="flex w-full items-center">
-        <div class="mb-4 w-full px-3">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-            Senha
-          </label>
-          <input
-            class="transition focus:outline-none border focus:bg-white focus:border-gray-300 placeholder-gray-600 rounded bg-gray-200 py-2 pr-4 pl-2 block w-full appearance-none leading-normal ds-input"
-            type="password"
-            placeholder="Digite sua senha"
-            autocomplete="off"
-            spellcheck="false"
-            dir="auto"
-            name="password"
-            v-model="user.password"
-            :class="{ 'border-red-500': $v.user.password.$error }"
-          />
-        </div>
-
-        <div class="mb-4 w-full px-3">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-            Confirmar Senha
-          </label>
-          <input
-            class="transition focus:outline-none border focus:bg-white focus:border-gray-300 placeholder-gray-600 rounded bg-gray-200 py-2 pr-4 pl-2 block w-full appearance-none leading-normal ds-input"
-            type="password"
-            placeholder="Digite sua senha"
-            autocomplete="off"
-            spellcheck="false"
-            dir="auto"
-            name="password"
-            v-model="user.passwordConfirmation"
-            :class="{ 'border-red-500': $v.user.passwordConfirmation.$error }"
-          />
-        </div>
-      </div>
-      <common-button :loading="loading" :disabled="this.$v.$anyError" class="w-full" type="submit"
-        >Cadastrar</common-button
-      >
-    </form>
-    <router-link
-      to="/login"
-      title="Já sou um mockador"
-      class="form-registration-bottom flex justify-center items-center text-purple-600 font-bold"
+  <session-container>
+    <session-form
+      :loading="loading"
+      :submitDisabled="this.$v.$anyError"
+      submitButtonTitle="Cadastrar"
+      backButtonTitle="Já sou um mockador"
+      backButtonTo="/login"
+      @submit="submit"
     >
-      <span>Já sou um mockador</span>
-    </router-link>
-  </div>
+      <mock-input
+        type="email"
+        name="email"
+        :hasError="$v.user.email.$error"
+        placeholder="Digite seu e-mail"
+        label="E-mail"
+        v-model="user.email"
+      ></mock-input>
+      <mock-input
+        type="text"
+        name="name"
+        :hasError="$v.user.name.$error"
+        placeholder="Digite seu nome"
+        label="Nome"
+        v-model="user.name"
+      ></mock-input>
+
+      <div class="flex w-full items-center">
+        <mock-input
+          class="mr-2"
+          type="password"
+          name="password"
+          :hasError="$v.user.password.$error"
+          placeholder="Digite sua senha"
+          label="Senha"
+          v-model="user.password"
+        ></mock-input>
+        <mock-input
+          type="password"
+          name="passwordConfirmation"
+          :hasError="$v.user.passwordConfirmation.$error"
+          placeholder="Confirme sua senha"
+          label="Confirmação de senha"
+          v-model="user.passwordConfirmation"
+        ></mock-input>
+      </div>
+    </session-form>
+  </session-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { required, email, sameAs } from "vuelidate/lib/validators";
-import CommonButton from "./Common/Button";
+import SessionContainer from "./Common/SessionContainer";
+import SessionForm from "./Common/SessionForm";
+import MockInput from "./Common/MockInput";
 import routeNames from "../router/routes";
 
 export default {
@@ -114,7 +72,9 @@ export default {
     }
   },
   components: {
-    CommonButton
+    SessionContainer,
+    SessionForm,
+    MockInput
   },
   computed: {
     ...mapGetters({
@@ -141,21 +101,4 @@ export default {
 
 <style lang="scss">
 @import "../assets/styles/variables";
-.registration-form {
-  width: calc((8 / 12) * 100%);
-  max-width: 900px;
-  background-color: #ffffff;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  padding: 37px;
-}
-.form-registration-bottom {
-  width: calc((8 / 12) * 100%);
-  max-width: 900px;
-  height: 70px;
-  margin-top: 10px;
-  background-color: #ffffff;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
 </style>

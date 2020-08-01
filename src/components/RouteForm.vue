@@ -9,11 +9,8 @@
           <span class="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs font-bold mr-3"
             >Ativo em</span
           >
-          <a
-            class="font-semibold mr-2 text-left flex-auto"
-            :href="`${baseDomainMocks}${form.route.path}`"
-            target="_blank"
-            >({{ form.route.httpMethod }}) {{ `${baseDomainMocks}${form.route.path}` }}</a
+          <a class="font-semibold mr-2 text-left flex-auto" :href="mockUrl" target="_blank"
+            >({{ form.route.httpMethod }}) {{ mockUrl }}</a
           >
         </div>
       </div>
@@ -143,8 +140,12 @@ export default {
       mockUserId: "mockUser/selectedUser",
       httpMethods: "global/httpMethods",
       statusCodes: "global/statusCodes",
-      persistedRoute: "route/route"
-    })
+      persistedRoute: "route/route",
+      project: "global/project"
+    }),
+    mockUrl() {
+      return `${this.baseDomainMocks}/${this.project.uniqueName}${this.form.route.path}`;
+    }
   },
   mounted() {
     this.goBackToHomeUnlessExistUser();
@@ -168,12 +169,12 @@ export default {
       const path =
         this.form.route.path[0] !== "/" ? `/${this.form.route.path}` : this.form.route.path;
 
-      this.form.route = { ...this.form.route, path };
+      this.form.route = { ...this.form.route, path, active: true };
       const route = {
         ...this.form.route,
         mockUserId: this.mockUserId,
-        active: true,
-        path
+        path,
+        projectId: this.project.id
       };
 
       this.$store.dispatch("route/createRoute", {

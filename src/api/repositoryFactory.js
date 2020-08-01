@@ -3,6 +3,8 @@ import routeRepository from "./routeRepository";
 import utilRepository from "./utilRepository";
 import sessionRepository from "./sessionRepository";
 import registrationRepository from "./registrationRepository";
+import projectRepository from "./projectRepository";
+import resetPasswordRepository from "./resetPasswordRepository";
 
 // eslint-disable-next-line import/prefer-default-export
 export const RepositoryFactory = {
@@ -10,5 +12,7 @@ export const RepositoryFactory = {
   route: routeRepository,
   util: utilRepository,
   session: sessionRepository,
-  registration: registrationRepository
+  registration: registrationRepository,
+  project: projectRepository,
+  resetPassword: resetPasswordRepository
 };

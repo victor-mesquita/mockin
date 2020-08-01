@@ -1,7 +1,7 @@
 <template>
   <div class="common-button">
     <button
-      class="button text-xl w-full uppercase mt-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      class="button w-full uppercase mt-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       v-on:click.self="$emit('click', $event.target.value)"
       :disabled="loading"
     >

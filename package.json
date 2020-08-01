@@ -27,7 +27,8 @@
     "vue-toasted": "^1.1.27",
     "vue2-ace-editor": "^0.0.14",
     "vuelidate": "^0.7.4",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.0",

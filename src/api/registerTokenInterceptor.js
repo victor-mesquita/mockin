@@ -17,6 +17,7 @@ function registerTokenInterceptor(axios) {
       window.localStorage.removeItem('auth-user');
 
       showError('Sua sessão expirou!');
+      window.location = '/';
     }
     return Promise.reject(error);
   });

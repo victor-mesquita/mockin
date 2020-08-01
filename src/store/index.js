@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 import globaModule from "./modules/global";
 import mockUserModule from "./modules/mockUser";
@@ -16,8 +17,7 @@ export default new Vuex.Store({
     session: sessionModule,
   },
   plugins: [
-    // createPersistedState(),
-    // createSharedMutations(),
+    createPersistedState()
   ],
   strict: process.env.NODE_ENV !== "production"
 });

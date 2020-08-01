@@ -66,7 +66,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      persistedUser: "mockUser/user"
+      persistedUser: "mockUser/user",
+      project: "global/project"
     })
   },
   validations: {
@@ -84,8 +85,10 @@ export default {
       this.$v.user.$touch();
       if (this.$v.user.$error) return;
 
+      const user = { ...this.user, projectId: this.project.id };
+
       this.$store.dispatch("mockUser/createUser", {
-        user: this.user
+        user
       });
     }
   },

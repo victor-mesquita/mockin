@@ -21,29 +21,22 @@ function showApiValidationErrors(errors) {
   }
 }
 
-function showApiLevelMessages(errorObject, error) {
-  if (errorObject.errors) {
-    showApiValidationErrors(errorObject.errors);
-  } else {
-    showError(error.response.data.error.message);
-  }
-}
-
-function showApiErrors(error) {
+function showApiErrors(errorObject) {
   let successToShowError = false;
+  const apiHaveSendSomeMessages = errorObject.response && errorObject.response.data;
 
-  if (!error.response && !error.response.data && !error.response.data.message) {
+  if (!errorObject.response || !apiHaveSendSomeMessages) {
     showError("Não foi possível realizar sua requisição, Tente novamente mais tarde!");
   }
 
-  const { message } = error.response.data;
+  const { message, errors, error } = errorObject.response.data;
 
-  const errorObject = error.response.data.error;
-
-  if (errorObject) {
-    showApiLevelMessages(errorObject, error);
-  } else {
+  if (message) {
     showError(message);
+  } else if (error) {
+    showError(error.message);
+  } else {
+    showApiValidationErrors(errors);
   }
 
   successToShowError = true;

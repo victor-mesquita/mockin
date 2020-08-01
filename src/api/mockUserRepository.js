@@ -2,8 +2,8 @@ import repository from "./repository";
 
 const resource = "/mock-user/";
 export default {
-  list() {
-    return repository.get(`${resource}`);
+  list(projectId) {
+    return repository.get(`${resource}${projectId}`);
   },
 
   get(id) {

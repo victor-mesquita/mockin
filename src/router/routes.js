@@ -4,5 +4,7 @@ export default {
   routeForm: 'route',
   userForm: 'user',
   login: 'login',
-  registration: 'registration'
+  registration: 'registration',
+  forgetPassword: 'forgetPassword',
+  resetPassword: 'resetPassword'
 };

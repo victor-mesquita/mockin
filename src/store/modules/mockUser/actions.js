@@ -5,9 +5,9 @@ const SegmentRepository = RepositoryFactory.segment;
 const SubSegmentRepository = RepositoryFactory.subSegment;
 const MockUserRepository = RepositoryFactory.mockUser;
 
-const getUsers = async context => {
+const getUsers = async (context, payload) => {
   asyncHandler(context, async () => {
-    const response = await MockUserRepository.list();
+    const response = await MockUserRepository.list(payload.projectId);
 
     // eslint-disable-next-line camelcase
     const { mock_users } = response.data;

@@ -1,5 +1,6 @@
 import { RepositoryFactory } from "../../../api/repositoryFactory";
 const UtilRepository = RepositoryFactory.util;
+const ProjectRepository = RepositoryFactory.project;
 
 const setPage = (context, payload) => {
   context.commit("GLOBAL_PAGE", payload.pageName);
@@ -34,10 +35,34 @@ const fetchHttpStatusCode = async (context) => {
   }
 };
 
+const fetchProjects = async function fetchProjects(context) {
+  try {
+    const response = await ProjectRepository.list();
+
+    const { projects } = response.data;
+
+    if (projects.length > 0) {
+      this.dispatch("global/setProject", { project: projects[0] });
+    }
+
+    context.commit("PROJECTS", projects);
+    return projects;
+  } catch (error) {
+    context.commit("PROJECTS", []);
+    return [];
+  }
+};
+
+const setProject = (context, payload) => {
+  context.commit("GLOBAL_PROJECT", payload.project);
+};
+
 export default {
   setPage,
   doSearch,
   hideSearch,
   fetchHttpMethods,
-  fetchHttpStatusCode
+  fetchHttpStatusCode,
+  setProject,
+  fetchProjects
 };

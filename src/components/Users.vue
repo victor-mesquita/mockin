@@ -47,7 +47,7 @@ import Container from "@/components/Common/Container";
 import Popup from "@/components/Common/Popup";
 import UserElement from "./Users/UserElement";
 import UserLoading from "./Users/UserLoading";
-import routeNames from '../router/routes';
+import routeNames from "../router/routes";
 
 export default {
   name: "users",
@@ -68,7 +68,8 @@ export default {
       users: "mockUser/users",
       loading: "mockUser/fetching",
       hasError: "mockUser/hasError",
-      searchTerm: "global/searchTerm"
+      searchTerm: "global/searchTerm",
+      project: "global/project"
     }),
     filteredUsers: function filteredUsers() {
       return this.users.filter(user => user.msisdn.includes(this.searchTerm));
@@ -82,15 +83,18 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("mockUser/getUsers");
-
     this.$store.dispatch("global/setPage", {
       pageName: "Massas"
     });
   },
+  watch: {
+    project() {
+      this.$store.dispatch("mockUser/getUsers", { projectId: this.project.id });
+    }
+  },
   methods: {
     fetchUsers: function fetchUsers() {
-      this.$store.dispatch("mockUser/getUsers");
+      this.$store.dispatch("mockUser/getUsers", { projectId: this.project.id });
     },
     viewUser: function viewUser(user) {
       this.$store.dispatch("mockUser/setUser", user.id);

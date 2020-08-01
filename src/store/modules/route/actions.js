@@ -1,7 +1,6 @@
-import Vue from "vue";
 import { RepositoryFactory } from "@/api/repositoryFactory";
 import { asyncHandler } from "@/util/vuexAsync";
-import { showApiErrors, showError } from "@/util/toastManager";
+import { showApiErrors, showError, showSuccess } from "@/util/toastManager";
 const RouteRepository = RepositoryFactory.route;
 
 const getRoutes = async (context, payload) => {
@@ -40,7 +39,7 @@ const createRoute = async (context, payload) => {
 
       context.commit("ROUTE_CREATED", persistedRoute != null);
 
-      Vue.toasted.success("Rota criada com sucesso!");
+      showSuccess("Rota criada com sucesso!");
     } catch (error) {
       showApiErrors(error);
     }

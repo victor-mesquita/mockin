@@ -7,7 +7,9 @@ const state = {
   searchTerm: "",
   hideSearch: false,
   httpMethods: [],
-  statusCodes: []
+  statusCodes: [],
+  project: {},
+  projects: []
 };
 
 export default {
