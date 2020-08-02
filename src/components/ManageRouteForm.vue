@@ -17,12 +17,13 @@
       v-show="hasError"
       v-on:click="fetchRoutes"
       class="text-xl text-primary mb-8 text-center cursor-pointer"
-    >Falha ao recuperar rotas, Toque para atualizar!</h4>
+    >
+      Falha ao recuperar rotas, Toque para atualizar!
+    </h4>
 
-    <h4
-      v-show="canShowNoRoutes"
-      class="text-xl text-primary mb-8 text-center"
-    >Nenhuma rota encontrada!</h4>
+    <h4 v-show="canShowNoRoutes" class="text-xl text-primary mb-8 text-center">
+      Nenhuma rota encontrada!
+    </h4>
 
     <div v-show="!hasError">
       <RouteLoading v-show="loading"></RouteLoading>
@@ -45,11 +46,11 @@
 <script>
 import { mapGetters } from "vuex";
 
-import RouteElement from "./Routes/RouteElement";
-import RouteLoading from "./Routes/RouteLoading";
 import Popup from "@/components/Common/Popup";
 import Container from "@/components/Common/Container";
 import { formatMsisdn } from "@/filters/msisdnFormat";
+import RouteElement from "./Routes/RouteElement";
+import RouteLoading from "./Routes/RouteLoading";
 
 export default {
   name: "Routes",
@@ -106,7 +107,7 @@ export default {
     deleteRoute: function deleteRoute(routeId) {
       this.showPopup = true;
       this.popupData = { routeId };
-    },
+    }
   }
 };
 </script>

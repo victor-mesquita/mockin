@@ -6,14 +6,15 @@
           class="p-2 bg-green-800 items-center text-green-100 leading-none lg:rounded-full flex lg:inline-flex"
           role="alert"
         >
-          <span
-            class="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs font-bold mr-3"
-          >Ativo em</span>
+          <span class="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs font-bold mr-3"
+            >Ativo em</span
+          >
           <a
             class="font-semibold mr-2 text-left flex-auto"
             :href="`${baseDomainMocks}${form.route.path}`"
             target="_blank"
-          >({{form.route.httpMethod}}) {{`${baseDomainMocks}${form.route.path}`}}</a>
+            >({{ form.route.httpMethod }}) {{ `${baseDomainMocks}${form.route.path}` }}</a
+          >
         </div>
       </div>
     </div>
@@ -25,7 +26,8 @@
             <label
               class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               for="route-path"
-            >Path</label>
+              >Path</label
+            >
             <input
               class="w-full block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               name="route-path"
@@ -34,6 +36,21 @@
               placeholder="/exemplo/create/"
               :required="true"
               :class="{ 'border-red-500': $v.form.route.path.$error }"
+            />
+          </div>
+          <div class="w-full px-3">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              for="route-description"
+              >Descrição</label
+            >
+            <input
+              class="w-full block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              name="route-description"
+              id="route-description"
+              v-model="form.route.description"
+              placeholder="Ex: Minha rota para autenticação"
+              maxlength="60"
             />
           </div>
         </div>
@@ -64,7 +81,8 @@
             <label
               class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               for="route-response"
-            >Response</label>
+              >Response</label
+            >
             <ace-editor
               name="route-response"
               id="route-response"
@@ -81,10 +99,12 @@
         <div class="flex items-center mt-10">
           <button
             :disabled="this.$v.$anyError"
-            :class="{'opacity-50': this.$v.$anyError}"
+            :class="{ 'opacity-50': this.$v.$anyError }"
             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-5"
             type="submit"
-          >Salvar</button>
+          >
+            Salvar
+          </button>
         </div>
       </form>
     </div>
@@ -146,9 +166,7 @@ export default {
 
       // eslint-disable-next-line operator-linebreak
       const path =
-        this.form.route.path[0] !== "/"
-          ? `/${this.form.route.path}`
-          : this.form.route.path;
+        this.form.route.path[0] !== "/" ? `/${this.form.route.path}` : this.form.route.path;
 
       this.form.route = { ...this.form.route, path };
       const route = {
@@ -175,7 +193,7 @@ export default {
   },
   watch: {
     persistedRoute() {
-      this.form = { ...this.form, route: this.persistedRoute };
+      this.form = { ...this.form, route: { ...this.persistedRoute } };
     }
   },
   destroyed() {

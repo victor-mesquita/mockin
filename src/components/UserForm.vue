@@ -2,11 +2,12 @@
   <container title="Criar massa" :can-back="true">
     <div class="w-full h-full">
       <form @submit.prevent="submit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <div class="w-full">
           <label
             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             for="numero"
-          >Número</label>
+            >Número</label
+          >
           <the-mask
             class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             :class="{ 'border-red-500': $v.user.msisdn.$error }"
@@ -16,15 +17,29 @@
             v-model="user.msisdn"
             :mask="['(##) #####-####']"
           />
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            for="description"
+            >Descrição</label
+          >
+          <input
+            type="text"
+            v-model="user.description"
+            maxlength="60"
+            placeholder="Adicione mais informações ao usuário"
+            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+          />
         </div>
 
         <div class="flex items-center mt-10">
           <button
             :disabled="this.$v.$anyError"
-            :class="{'opacity-50': this.$v.$anyError}"
+            :class="{ 'opacity-50': this.$v.$anyError }"
             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-5"
             type="submit"
-          >Salvar</button>
+          >
+            Salvar
+          </button>
         </div>
       </form>
     </div>

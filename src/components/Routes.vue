@@ -28,13 +28,14 @@
     <div v-show="!hasError">
       <RouteLoading v-show="loading"></RouteLoading>
 
-      <div v-show="!loading" class="flex flex-col mt-5">
+      <div v-show="!loading" class="flex flex-col my-5">
         <RouteElement
           v-for="route in filteredRoutes"
           :key="route.id"
           :routeId="route.id"
           :httpMethod="route.httpMethod"
           :path="route.path"
+          :description="route.description"
           v-on:view="viewRoute(route)"
           v-on:delete="deleteRoute(route.id)"
         ></RouteElement>
@@ -46,11 +47,12 @@
 <script>
 import { mapGetters } from "vuex";
 
-import RouteElement from "./Routes/RouteElement";
-import RouteLoading from "./Routes/RouteLoading";
+
 import Popup from "@/components/Common/Popup";
 import Container from "@/components/Common/Container";
 import { formatMsisdn } from "@/filters/msisdnFormat";
+import RouteElement from "./Routes/RouteElement";
+import RouteLoading from "./Routes/RouteLoading";
 
 export default {
   name: "Routes",

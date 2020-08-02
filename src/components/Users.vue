@@ -4,7 +4,9 @@
       v-show="hasError"
       v-on:click="fetchUsers"
       class="text-xl text-primary mb-8 text-center cursor-pointer"
-    >Falha ao recuperar massas, Toque para atualizar!</h4>
+    >
+      Falha ao recuperar massas, Toque para atualizar!
+    </h4>
 
     <popup
       v-show="showPopup"
@@ -15,26 +17,25 @@
       message="Essa mudança afetará todas as rotas associadas a essa massa."
     ></popup>
 
-    <h4
-      v-show="canShowNoUsers"
-      class="text-xl text-primary mb-8 text-center"
-    >Nenhum usuário encontrado!</h4>
+    <h4 v-show="canShowNoUsers" class="text-xl text-primary mb-8 text-center">
+      Nenhum usuário encontrado!
+    </h4>
 
     <div v-show="!hasError">
-      <UserLoading v-show="loading"></UserLoading>
-
-      <div v-show="!loading" class="flex flex-col lg:flex-row lg:flex-wrap mt-5">
+      <div v-if="!loading" class="flex flex-col mb-5">
         <UserElement
+          class="mt-2"
           v-for="user in filteredUsers"
           :key="user.msisdn"
           :user-id="user.id"
           :msisdn="user.msisdn | msisdnFormat"
-          :plan="user.name"
+          :description="user.description"
           v-on:view="viewUser(user)"
           v-on:edit="editUser(user)"
           v-on:delete="deleteUser"
         ></UserElement>
       </div>
+      <UserLoading v-else></UserLoading>
     </div>
   </container>
 </template>
@@ -113,14 +114,4 @@ export default {
 
 <style lang="scss">
 @import "../assets/styles/variables";
-
-@media (min-width: 1024px) {
-  .user-card {
-    width: 31.333333%;
-    margin-left: 1.25rem;
-  }
-}
-.user-card {
-  margin-bottom: 1.25rem;
-}
 </style>
