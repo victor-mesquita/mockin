@@ -1,6 +1,6 @@
 <template>
   <container title="Criar massa" :can-back="true">
-    <div class="w-full h-full">
+    <div class="w-full">
       <form @submit.prevent="submit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="w-full">
           <label

@@ -8,7 +8,7 @@ const state = {
   hideSearch: false,
   httpMethods: [],
   statusCodes: [],
-  project: {},
+  project: null,
   projects: []
 };
 

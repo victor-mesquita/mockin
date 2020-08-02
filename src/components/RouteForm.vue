@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div class="w-full h-full">
+    <div class="w-full">
       <form @submit.prevent="submit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="flex items-center mb-6">
           <div class="w-full px-3">

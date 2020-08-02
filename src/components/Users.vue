@@ -83,13 +83,19 @@ export default {
     }
   },
   mounted() {
+    if (this.project) {
+      this.$store.dispatch("mockUser/getUsers", { projectId: this.project.id });
+    }
+
     this.$store.dispatch("global/setPage", {
       pageName: "Massas"
     });
   },
   watch: {
     project() {
-      this.$store.dispatch("mockUser/getUsers", { projectId: this.project.id });
+      if (this.project) {
+        this.$store.dispatch("mockUser/getUsers", { projectId: this.project.id });
+      }
     }
   },
   methods: {
