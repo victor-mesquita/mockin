@@ -7,7 +7,7 @@
       </div>
 
       <slot></slot>
-      <common-button :loading="loading" :disabled="submitDisabled" class="w-full" type="submit">{{
+      <common-button :loading="loading" :disabled="submitDisabled" class="w-full">{{
         submitButtonTitle
       }}</common-button>
     </form>
