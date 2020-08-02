@@ -70,8 +70,10 @@ export default {
     onSearch: function onSearch(value) {
       this.$store.dispatch("global/doSearch", { searchTerm: value });
     },
-    onChangeProject: function onChangeProject() {
-      // console.log(projectId);
+    onChangeProject: function onChangeProject(projectId) {
+      const project = this.projects.find(p => p.id === +projectId);
+
+      this.$store.dispatch("global/setProject", { project });
     }
   }
 };
