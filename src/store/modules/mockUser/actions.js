@@ -29,7 +29,6 @@ const getUser = async (context, userId) => {
 const createUser = async (context, payload) => {
   asyncHandler(context, async () => {
     try {
-      console.log(payload.user.id);
       if (payload.user.id) {
         await MockUserRepository.update(payload.user);
       } else {

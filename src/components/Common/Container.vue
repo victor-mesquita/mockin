@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full overflow-auto flex-grow">
+  <div class="flex flex-col h-full flex-grow">
     <div class="w-full h-auto px-6 py-8 flex-grow bg-gray-100">
       <img
         class="float-left cursor-pointer"

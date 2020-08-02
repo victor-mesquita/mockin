@@ -55,7 +55,7 @@ export default {
   },
   watch: {
     projects() {
-      console.log("changed");
+      // console.log("changed");
     }
   },
   computed: {
@@ -70,8 +70,8 @@ export default {
     onSearch: function onSearch(value) {
       this.$store.dispatch("global/doSearch", { searchTerm: value });
     },
-    onChangeProject: function onChangeProject(projectId) {
-      console.log(projectId);
+    onChangeProject: function onChangeProject() {
+      // console.log(projectId);
     }
   }
 };
