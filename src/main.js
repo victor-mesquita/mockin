@@ -9,8 +9,10 @@ import store from "./store";
 import directives from "./directives";
 import filters from "./filters";
 import registerThirdPartyServices from "./thirdPartyServices";
+import tokenMiddleware from './middlewares/tokenMiddleware';
 
 registerThirdPartyServices(Vue);
+tokenMiddleware(router);
 
 /* eslint-disable no-new */
 new Vue({

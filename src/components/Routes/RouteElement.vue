@@ -1,9 +1,9 @@
 <template>
   <div
     class="route-card flex w-full justify-between items-center bg-white py-4 px-5 select-none relative cursor-pointer"
-    v-on:click="$emit('view', $event.target.value)"
+    v-on:click.self="$emit('view', $event.target.value)"
   >
-    <div class="flex flex-row items-around">
+    <div class="flex flex-row items-around" v-on:click="$emit('view', $event.target.value)">
       <span class="h-6 rounded-full bg-indigo-100 px-2 py-1 text-xs text-indigo-400 font-bold">{{
         httpMethod
       }}</span>

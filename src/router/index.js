@@ -1,43 +1,64 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import routeNames from './routes';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'main',
-      component: require('@/components/Users').default,
-    },
-    {
       path: '*',
       redirect: '/',
     },
     {
-      path: '/routes/:msisdn',
-      name: 'routes',
-      component: require('@/components/Routes').default,
+      path: '/',
+      component: Vue.component('Layout', require('@/components/Layout').default),
+      children: [
+        {
+          path: '/',
+          name: routeNames.users,
+          component: require('@/components/Users').default,
+        },
+        {
+          path: '/routes/:msisdn',
+          name: routeNames.routes,
+          component: require('@/components/Routes').default,
+        },
+        {
+          path: '/route/:id?',
+          name: routeNames.routeForm,
+          component: require('@/components/RouteForm').default,
+        },
+        {
+          path: '/user/:id?',
+          name: routeNames.userForm,
+          component: require('@/components/UserForm').default,
+        },
+      ]
     },
     {
-      path: '/route/:id?',
-      name: 'route',
-      component: require('@/components/RouteForm').default,
+      path: '/login',
+      name: routeNames.login,
+      meta: { public: true },
+      component: require('@/components/Login').default
     },
     {
-      path: '/manage-routes/',
-      name: 'manage-routes',
-      component: require('@/components/ManageRoute').default,
+      path: '/registration',
+      name: routeNames.registration,
+      meta: { public: true },
+      component: require('@/components/Registration').default
     },
     {
-      path: '/manage-routes/:id?',
-      name: 'manage-routes',
-      component: require('@/components/ManageRouteForm').default,
+      path: '/forget-password',
+      name: routeNames.forgetPassword,
+      meta: { public: true },
+      component: require('@/components/ForgetPassword').default
     },
     {
-      path: '/user/:id?',
-      name: 'user',
-      component: require('@/components/UserForm').default,
-    },
+      path: '/reset-password/:securityToken',
+      name: routeNames.resetPassword,
+      meta: { public: true },
+      component: require('@/components/ResetPassword').default
+    }
   ],
 });

@@ -30,6 +30,7 @@
 
       <div v-show="!loading" class="flex flex-col my-5">
         <RouteElement
+          class="mt-2"
           v-for="route in filteredRoutes"
           :key="route.id"
           :routeId="route.id"
@@ -53,6 +54,7 @@ import Container from "@/components/Common/Container";
 import { formatMsisdn } from "@/filters/msisdnFormat";
 import RouteElement from "./Routes/RouteElement";
 import RouteLoading from "./Routes/RouteLoading";
+import routeNames from '../router/routes';
 
 export default {
   name: "Routes",
@@ -103,10 +105,10 @@ export default {
       this.$store.dispatch("route/getRoutes", { msisdn });
     },
     viewRoute: function viewRoute(route) {
-      this.$router.push({ name: "route", params: { id: route.id } });
+      this.$router.push({ name: routeNames.routeForm, params: { id: route.id } });
     },
     addRoute: function addRoute() {
-      this.$router.push({ name: "route" });
+      this.$router.push({ name: routeNames.routeForm });
     },
     deleteRoute: function deleteRoute(routeId) {
       this.showPopup = true;

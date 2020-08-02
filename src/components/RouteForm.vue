@@ -9,17 +9,14 @@
           <span class="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs font-bold mr-3"
             >Ativo em</span
           >
-          <a
-            class="font-semibold mr-2 text-left flex-auto"
-            :href="`${baseDomainMocks}${form.route.path}`"
-            target="_blank"
-            >({{ form.route.httpMethod }}) {{ `${baseDomainMocks}${form.route.path}` }}</a
+          <a class="font-semibold mr-2 text-left flex-auto" :href="mockUrl" target="_blank"
+            >({{ form.route.httpMethod }}) {{ mockUrl }}</a
           >
         </div>
       </div>
     </div>
 
-    <div class="w-full h-full">
+    <div class="w-full">
       <form @submit.prevent="submit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="flex items-center mb-6">
           <div class="w-full px-3">
@@ -140,11 +137,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      userId: "user/selectedUser",
+      mockUserId: "mockUser/selectedUser",
       httpMethods: "global/httpMethods",
       statusCodes: "global/statusCodes",
-      persistedRoute: "route/route"
-    })
+      persistedRoute: "route/route",
+      project: "global/project"
+    }),
+    mockUrl() {
+      return `${this.baseDomainMocks}/${this.project.uniqueName}${this.form.route.path}`;
+    }
   },
   mounted() {
     this.goBackToHomeUnlessExistUser();
@@ -168,12 +169,12 @@ export default {
       const path =
         this.form.route.path[0] !== "/" ? `/${this.form.route.path}` : this.form.route.path;
 
-      this.form.route = { ...this.form.route, path };
+      this.form.route = { ...this.form.route, path, active: true };
       const route = {
         ...this.form.route,
-        userId: this.userId,
-        active: true,
-        path
+        mockUserId: this.mockUserId,
+        path,
+        projectId: this.project.id
       };
 
       this.$store.dispatch("route/createRoute", {
@@ -186,7 +187,7 @@ export default {
       require("brace/theme/crimson_editor");
     },
     goBackToHomeUnlessExistUser: function goBackToHomeUnlessExistUser() {
-      if (!this.userId) {
+      if (!this.mockUserId) {
         this.$router.go(-2);
       }
     }
