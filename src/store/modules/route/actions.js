@@ -32,14 +32,16 @@ const createRoute = async (context, payload) => {
       if (routeDoNotExists) {
         const response = await RouteRepository.create(payload.route);
         persistedRoute = response.data.route;
+
+        showSuccess("Rota criada com sucesso!");
       } else {
         const response = await RouteRepository.update(payload.route);
         persistedRoute = response.data.route;
+
+        showSuccess("Rota atualizada com sucesso!");
       }
 
       context.commit("ROUTE_CREATED", persistedRoute != null);
-
-      showSuccess("Rota criada com sucesso!");
     } catch (error) {
       showApiErrors(error);
     }

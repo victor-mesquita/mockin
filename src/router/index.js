@@ -30,7 +30,7 @@ export default new Router({
           component: require('@/components/RouteForm').default,
         },
         {
-          path: '/user/:id?',
+          path: '/user/:projectId/:id?',
           name: routeNames.userForm,
           component: require('@/components/UserForm').default,
         },

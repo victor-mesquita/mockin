@@ -108,7 +108,10 @@ export default {
       this.$router.push({ name: routeNames.routes, params: { msisdn: user.msisdn } });
     },
     editUser: function editUser(user) {
-      this.$router.push({ name: routeNames.userForm, params: { id: user.id } });
+      this.$router.push({
+        name: routeNames.userForm,
+        params: { id: user.id, projectId: this.project.id }
+      });
     },
     deleteUser: function deleteUser(userId) {
       this.showPopup = true;

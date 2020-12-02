@@ -1,14 +1,17 @@
 import { showApiErrors, showSuccess } from "@/util/toastManager";
 import { asyncHandler } from "@/util/vuexAsync";
 import { RepositoryFactory } from "@/api/repositoryFactory";
-const SessionRepository = RepositoryFactory.session;
+import sessionRepository from '@/api/sessionRepository';
 const RegistrationRepository = RepositoryFactory.registration;
 const ResetPasswordRepository = RepositoryFactory.resetPassword;
 
-function handleAuthToken(userId, response, accessToken, context) {
+function handleAuthToken(userId, response, context) {
+  const { accessToken, renewalToken } = response.data;
+
   if (response.data) {
     window.localStorage.setItem('token', accessToken);
     window.localStorage.setItem('auth-user', userId);
+    window.localStorage.setItem('renewalToken', renewalToken);
   }
 
   const authenticated = accessToken != null;
@@ -22,10 +25,9 @@ const login = async function login(context, payload) {
 
   return asyncHandler(context, async () => {
     try {
-      const response = await SessionRepository.login(payload.user);
-      const { accessToken } = response.data;
+      const response = await sessionRepository.login(payload.user);
 
-      const authenticated = handleAuthToken(payload.user.email, response, accessToken, context);
+      const authenticated = handleAuthToken(payload.user.email, response, context);
 
       if (authenticated) {
         const projects = await store.dispatch('global/fetchProjects');

@@ -16,13 +16,14 @@ const getUsers = async (context, payload) => {
   });
 };
 
-const getUser = async (context, userId) => {
+const getUser = async (context, payload) => {
   asyncHandler(context, async () => {
-    const response = await MockUserRepository.get(userId);
+    const response = await MockUserRepository.get(payload.userId, payload.projectId);
 
-    const { mockUser } = response.data;
+    // eslint-disable-next-line camelcase
+    const { mock_user } = response.data;
 
-    context.commit("USER_FETCHED", mockUser);
+    context.commit("USER_FETCHED", mock_user);
   });
 };
 
@@ -31,13 +32,13 @@ const createUser = async (context, payload) => {
     try {
       if (payload.user.id) {
         await MockUserRepository.update(payload.user);
+        showSuccess("Usuário atualizado com sucesso!");
       } else {
         await MockUserRepository.create(payload.user);
+        showSuccess("Usuário criado com sucesso!");
       }
 
       context.commit("SET_DID_CREATE_USER", true);
-
-      showSuccess("Usuário criado com sucesso!");
     } catch (error) {
       showApiErrors(error);
     }

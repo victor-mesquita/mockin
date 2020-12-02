@@ -99,13 +99,16 @@ export default {
     this.$store.dispatch("global/hideSearch", false);
   },
   beforeRouteEnter(to, from, next) {
-    const { id } = to.params;
+    const { id, projectId } = to.params;
     if (!id) {
       next();
       return;
     }
 
-    const fetchUser = store.dispatch("mockUser/getUser", id);
+    const fetchUser = store.dispatch("mockUser/getUser", {
+      userId: id,
+      projectId
+    });
 
     Promise.all([fetchUser]).then(() => {
       next();

@@ -6,8 +6,8 @@ export default {
     return repository.get(`${resource}${projectId}`);
   },
 
-  get(id) {
-    return repository.get(`${resource}${id}`);
+  get(id, projectId) {
+    return repository.get(`${resource}${projectId}/${id}`);
   },
 
   create(user) {

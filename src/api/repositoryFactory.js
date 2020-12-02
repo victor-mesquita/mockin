@@ -1,7 +1,6 @@
 import mockUserRepository from "./mockUserRepository";
 import routeRepository from "./routeRepository";
 import utilRepository from "./utilRepository";
-import sessionRepository from "./sessionRepository";
 import registrationRepository from "./registrationRepository";
 import projectRepository from "./projectRepository";
 import resetPasswordRepository from "./resetPasswordRepository";
@@ -11,7 +10,6 @@ export const RepositoryFactory = {
   mockUser: mockUserRepository,
   route: routeRepository,
   util: utilRepository,
-  session: sessionRepository,
   registration: registrationRepository,
   project: projectRepository,
   resetPassword: resetPasswordRepository
