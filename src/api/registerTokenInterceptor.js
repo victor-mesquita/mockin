@@ -3,7 +3,6 @@ import sessionRepository from './sessionRepository';
 
 async function refreshToken() {
   const savedRenewalToken = window.localStorage.getItem('renewalToken');
-  console.log(savedRenewalToken);
   try {
     const { accessToken, renewalToken } = await sessionRepository.renew(savedRenewalToken);
     window.localStorage.setItem('token', accessToken);

@@ -50,9 +50,8 @@ const login = async function login(context, payload) {
 const createUser = async (context, payload) => asyncHandler(context, async () => {
   try {
     const response = await RegistrationRepository.create(payload.user);
-    const { accessToken } = response.data;
 
-    const authenticated = handleAuthToken(payload.user.email, response, accessToken, context);
+    const authenticated = handleAuthToken(payload.user.email, response, context);
 
     return authenticated;
   } catch (error) {

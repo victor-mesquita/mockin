@@ -5,7 +5,7 @@ const RouteRepository = RepositoryFactory.route;
 
 const getRoutes = async (context, payload) => {
   asyncHandler(context, async () => {
-    const response = await RouteRepository.list(payload.msisdn);
+    const response = await RouteRepository.list(payload.msisdn, payload.projectId);
 
     const { routes } = response.data;
 

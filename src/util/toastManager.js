@@ -31,12 +31,16 @@ function showApiErrors(errorObject) {
 
   const { message, errors, error } = errorObject.response.data;
 
-  if (message) {
-    showError(message);
-  } else if (error) {
-    showError(error.message);
-  } else {
+  if (errors) {
     showApiValidationErrors(errors);
+  } else if (error) {
+    if (error.errors) {
+      showApiValidationErrors(error.errors);
+    } else {
+      showError(error.message);
+    }
+  } else if (message) {
+    showError(message);
   }
 
   successToShowError = true;

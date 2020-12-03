@@ -1,5 +1,5 @@
 <template>
-  <container title="Massas" :can-add="true" v-on:add="editUser({})">
+  <container title="Massas" :can-add="true" v-on:add="editUser({})" v-if="this.project">
     <h4
       v-show="hasError"
       v-on:click="fetchUsers"
@@ -38,6 +38,13 @@
       <UserLoading v-else></UserLoading>
     </div>
   </container>
+  <div class="flex h-full" v-else>
+    <h4
+      class="text-xl text-primary text-center cursor-pointer m-auto"
+    >
+      Você ainda não tem projetos
+    </h4>
+  </div>
 </template>
 
 <script>
