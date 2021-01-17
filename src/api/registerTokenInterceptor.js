@@ -4,7 +4,9 @@ import sessionRepository from './sessionRepository';
 async function refreshToken() {
   const savedRenewalToken = window.localStorage.getItem('renewalToken');
   try {
-    const { accessToken, renewalToken } = await sessionRepository.renew(savedRenewalToken);
+    const response = await sessionRepository.renew(savedRenewalToken);
+    const { accessToken, renewalToken } = response.data;
+
     window.localStorage.setItem('token', accessToken);
     window.localStorage.setItem('renewalToken', renewalToken);
 
@@ -24,19 +26,13 @@ async function refreshToken() {
 function registerRefeshTokenListener(axios) {
   axios.interceptors.response.use((response) => response, (error) => {
     if (error.response.status === 401 && error.config.url !== '/mockinapi/session/renew') {
-      refreshToken()
+      return refreshToken()
         .then((newToken) => {
           if (newToken) {
             const { config } = error;
-            config.headers.Authorization = `Bearer ${newToken}`;
+            config.headers.Authorization = newToken;
 
-            return new Promise((resolve, reject) => {
-              axios.request(config).then(response => {
-                resolve(response);
-              }).catch((error) => {
-                reject(error);
-              });
-            });
+            return axios(config);
           }
 
           return Promise.reject(error);

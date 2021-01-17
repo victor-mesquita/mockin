@@ -16,8 +16,6 @@ export default {
     return axiosInstance.delete(`${resource}`);
   },
   renew(refreshToken) {
-    return axiosInstance.post(`${resource}renew`, {
-      headers: { Authorization: refreshToken }
-    });
+    return axiosInstance.post(`${resource}renew`, {}, { headers: { Authorization: refreshToken } });
   }
 };

@@ -35,6 +35,9 @@
               :class="{ 'border-red-500': $v.form.route.path.$error }"
             />
           </div>
+        </div>
+
+        <div class="flex items-center mb-6">
           <div class="w-full px-3">
             <label
               class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
