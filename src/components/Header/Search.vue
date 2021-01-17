@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <input
-      class="transition focus:outline-none border border-transparent focus:bg-white focus:border-gray-300 placeholder-gray-900 rounded-lg bg-gray-200 py-1 pr-4 pl-10 block w-full appearance-none leading-normal ds-input"
+      class="transition focus:outline-none border border-transparent focus:bg-white focus:border-gray-300 placeholder-gray-600 rounded-lg bg-gray-200 py-1 pr-4 pl-10 block w-full appearance-none leading-normal ds-input"
       type="text"
       :placeholder="`Buscar ${pageName}`"
       v-on:input="$emit('onSearch', $event.target.value)"

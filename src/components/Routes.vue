@@ -30,6 +30,7 @@
 
       <div v-show="!loading" class="flex flex-col my-5">
         <RouteElement
+          class="mt-2"
           v-for="route in filteredRoutes"
           :key="route.id"
           :routeId="route.id"
@@ -53,6 +54,7 @@ import Container from "@/components/Common/Container";
 import { formatMsisdn } from "@/filters/msisdnFormat";
 import RouteElement from "./Routes/RouteElement";
 import RouteLoading from "./Routes/RouteLoading";
+import routeNames from '../router/routes';
 
 export default {
   name: "Routes",
@@ -73,7 +75,8 @@ export default {
       routes: "route/routes",
       loading: "route/fetching",
       hasError: "route/hasError",
-      searchTerm: "global/searchTerm"
+      searchTerm: "global/searchTerm",
+      project: "global/project"
     }),
     filteredRoutes: function filteredRoutes() {
       return this.routes.filter(route => route.path.includes(this.searchTerm));
@@ -91,7 +94,7 @@ export default {
   },
   mounted() {
     const { msisdn } = this.$route.params;
-    this.$store.dispatch("route/getRoutes", { msisdn });
+    this.$store.dispatch("route/getRoutes", { msisdn, projectId: this.project.id });
 
     this.$store.dispatch("global/setPage", {
       pageName: "Rotas"
@@ -100,13 +103,14 @@ export default {
   methods: {
     fetchRoutes: function fetchRoutes() {
       const { msisdn } = this.$route.params;
-      this.$store.dispatch("route/getRoutes", { msisdn });
+
+      this.$store.dispatch("route/getRoutes", { msisdn, projectId: this.project.id });
     },
     viewRoute: function viewRoute(route) {
-      this.$router.push({ name: "route", params: { id: route.id } });
+      this.$router.push({ name: routeNames.routeForm, params: { id: route.id } });
     },
     addRoute: function addRoute() {
-      this.$router.push({ name: "route" });
+      this.$router.push({ name: routeNames.routeForm });
     },
     deleteRoute: function deleteRoute(routeId) {
       this.showPopup = true;

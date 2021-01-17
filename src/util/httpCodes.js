@@ -1,8 +1,4 @@
 const httpCodes = [
-  { name: "100" },
-  { name: "101" },
-  { name: "102" },
-  { name: "103" },
   { name: "200" },
   { name: "201" },
   { name: "202" },

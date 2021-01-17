@@ -1,12 +1,11 @@
-import Vue from "vue";
 import { RepositoryFactory } from "@/api/repositoryFactory";
 import { asyncHandler } from "@/util/vuexAsync";
-import { showApiErrors, showError } from "@/util/toastManager";
+import { showApiErrors, showError, showSuccess } from "@/util/toastManager";
 const RouteRepository = RepositoryFactory.route;
 
 const getRoutes = async (context, payload) => {
   asyncHandler(context, async () => {
-    const response = await RouteRepository.list(payload.msisdn);
+    const response = await RouteRepository.list(payload.msisdn, payload.projectId);
 
     const { routes } = response.data;
 
@@ -33,18 +32,18 @@ const createRoute = async (context, payload) => {
       if (routeDoNotExists) {
         const response = await RouteRepository.create(payload.route);
         persistedRoute = response.data.route;
+
+        showSuccess("Rota criada com sucesso!");
       } else {
         const response = await RouteRepository.update(payload.route);
         persistedRoute = response.data.route;
+
+        showSuccess("Rota atualizada com sucesso!");
       }
 
       context.commit("ROUTE_CREATED", persistedRoute != null);
-
-      Vue.toasted.success("Rota criada com sucesso!").goAway(1500);
     } catch (error) {
-      if (error.response && error.response.data) {
-        showApiErrors(error.response.data.errors);
-      }
+      showApiErrors(error);
     }
   });
 };

@@ -3,13 +3,9 @@ import getters from "./getters";
 import mutations from "./mutations";
 
 const state = {
-  pageName: "",
-  searchTerm: "",
-  hideSearch: false,
-  httpMethods: [],
-  statusCodes: [],
-  project: null,
-  projects: []
+  authenticated: false,
+  fetching: false,
+  hasError: false,
 };
 
 export default {
