@@ -1,7 +1,7 @@
 module.exports = {
   runtimeCompiler: true,
   pwa: {
-    workboxPluginMode: "GenerateSW",
+    workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       skipWaiting: true
     }

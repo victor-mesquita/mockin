@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik');
-
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "~animate.css/animate.css";
 @import 'variables';
 
 body{

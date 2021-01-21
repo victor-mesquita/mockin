@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots App/BaseText Default 1`] = `
+<div
+  class="flex items-center"
+>
+  <span
+    class="rounded-full h-2 w-2 flex items-center justify-center bg-black mr-2 hidden"
+  />
+   
+  <p
+    class="font-semibold text-sm"
+  >
+    Hello Mockin
+  </p>
+</div>
+`;
+
+exports[`Storyshots App/BaseText With Bullet 1`] = `
+<div
+  class="flex items-center"
+>
+  <span
+    class="rounded-full h-2 w-2 flex items-center justify-center bg-black mr-2"
+  />
+   
+  <p
+    class="font-semibold text-sm"
+  >
+    Hello Mockin
+  </p>
+</div>
+`;
+
+exports[`Storyshots App/Header Default 1`] = `
+<div
+  class="border-b border-gray-200 p-5 bg-white"
+>
+  <div
+    class="flex items-center"
+  >
+    <img
+      alt="Mock-in"
+      class="h-5 mr-2"
+      src="@/assets/images/icons/128x128.png"
+    />
+     
+    <span
+      class="uppercase text-purple-600 text-xs font-semibold"
+    >
+      Mock-in
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Storyshots App/List/Header Default 1`] = `
+<div
+  class="p-4 bg-gray-50 rounded-lg rounded-b-none border-b border-gray-200 flex justify-center items-center"
+>
+  <div
+    class="flex items-center"
+  >
+    <span
+      class="rounded-full h-2 w-2 flex items-center justify-center bg-black mr-2 hidden"
+    />
+     
+    <p
+      class="font-semibold text-lg"
+      style="color: rgb(71, 85, 105);"
+    >
+      Escolha um projeto
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots App/List/Item Default 1`] = `
+<div
+  class="border-b border-gray-200 p-5 bg-white cursor-pointer"
+>
+  <div
+    class="flex justify-between items-center"
+  >
+    <div
+      class="flex items-center"
+    >
+      <span
+        class="rounded-full h-2 w-2 flex items-center justify-center bg-black mr-2"
+      />
+       
+      <p
+        class="font-semibold text-sm"
+      >
+        Projeto 1
+      </p>
+    </div>
+     
+    <img
+      alt="Selecionar projeto Projeto 1"
+      class="select-none"
+      src="@/assets/images/arrow.svg"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots App/Logo Default 1`] = `
+<div
+  class="flex items-center"
+>
+  <img
+    alt="Mock-in"
+    class="h-5 mr-2"
+    src="@/assets/images/icons/128x128.png"
+  />
+   
+  <span
+    class="uppercase text-purple-600 text-xs font-semibold"
+  >
+    Mock-in
+  </span>
+</div>
+`;

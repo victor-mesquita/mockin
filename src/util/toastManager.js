@@ -1,10 +1,9 @@
-import Vue from "vue";
+import Vue from 'vue';
 
 const toastedOptions = {
   duration: 3000,
   singleton: true
 };
-
 
 function showSuccess(message) {
   Vue.toasted.success(message, toastedOptions);
@@ -26,7 +25,7 @@ function showApiErrors(errorObject) {
   const apiHaveSendSomeMessages = errorObject.response && errorObject.response.data;
 
   if (!errorObject.response || !apiHaveSendSomeMessages) {
-    showError("Não foi possível realizar sua requisição, Tente novamente mais tarde!");
+    showError('Não foi possível realizar sua requisição, Tente novamente mais tarde!');
   }
 
   const { message, errors, error } = errorObject.response.data;

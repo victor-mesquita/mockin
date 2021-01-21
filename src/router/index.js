@@ -8,7 +8,7 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: '/',
+      redirect: '/'
     },
     {
       path: '/',
@@ -17,23 +17,23 @@ export default new Router({
         {
           path: '/',
           name: routeNames.users,
-          component: require('@/components/Users').default,
+          component: require('@/components/Users').default
         },
         {
           path: '/routes/:msisdn',
           name: routeNames.routes,
-          component: require('@/components/Routes').default,
+          component: require('@/components/Routes').default
         },
         {
           path: '/route/:id?',
           name: routeNames.routeForm,
-          component: require('@/components/RouteForm').default,
+          component: require('@/components/RouteForm').default
         },
         {
           path: '/user/:projectId/:id?',
           name: routeNames.userForm,
-          component: require('@/components/UserForm').default,
-        },
+          component: require('@/components/UserForm').default
+        }
       ]
     },
     {
@@ -60,5 +60,5 @@ export default new Router({
       meta: { public: true },
       component: require('@/components/ResetPassword').default
     }
-  ],
+  ]
 });

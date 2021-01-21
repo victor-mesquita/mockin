@@ -6,16 +6,6 @@
 
 <script>
 export default {
-  name: "mockin"
+  name: 'mockin'
 };
 </script>
-
-<style>
-@tailwind base;
-
-@tailwind components;
-
-@tailwind utilities;
-
-@import "~animate.css/animate.css";
-</style>
