@@ -2,9 +2,9 @@
   <flex
     align="center"
     justify="center"
-    class="p-4 bg-gray-50 rounded-lg rounded-b-none border-b border-gray-200"
+    class="p-5 bg-white rounded-lg rounded-b-none border-b border-gray-200"
   >
-    <base-text :text="title" size="lg" color="#475569" />
+    <base-text font="normal" :text="title" size="lg" />
   </flex>
 </template>
 

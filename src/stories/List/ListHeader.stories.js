@@ -1,4 +1,4 @@
-import ListHeader from './ListHeader';
+import ListHeader from '@/common/components/List/ListHeader';
 
 export default {
   title: 'App/List/Header',

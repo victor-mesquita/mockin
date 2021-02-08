@@ -1,21 +1,30 @@
 <template>
-  <flex
-    align="center"
-    justify="center"
-    class="p-4 bg-gray-50 rounded-lg rounded-b-none border-b border-gray-200"
-  >
-    <base-text :text="title" size="lg" color="#475569" />
-  </flex>
+  <div>
+    <list-header :title="title"></list-header>
+    <template v-if="loading">
+      <list-item v-for="item in 3" :key="item" :loading="loading"></list-item>
+    </template>
+    <template v-else>
+      <list-item
+        v-for="project in projects"
+        :key="project.id"
+        :title="project.name"
+        :color="project.color"
+      ></list-item>
+    </template>
+  </div>
 </template>
 
 <script>
-import BaseText from '../BaseText.vue';
-import Flex from '../Flex.vue';
+import ListHeader from './ListHeader.vue';
+import ListItem from './ListItem.vue';
 
 export default {
-  components: { BaseText, Flex },
+  components: { ListHeader, ListItem },
   props: {
-    title: { type: String, required: true }
+    projects: { type: Array, required: true, default: () => [] },
+    loading: { type: Boolean },
+    title: { type: String }
   }
 };
 </script>

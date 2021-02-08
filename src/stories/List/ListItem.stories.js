@@ -1,4 +1,4 @@
-import ListItem from './ListItem';
+import ListItem from '@/common/components/List/ListItem';
 
 export default {
   title: 'App/List/Item',

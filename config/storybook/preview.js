@@ -5,8 +5,11 @@ import '../../src/assets/styles/main.scss';
 
 // eslint-disable-next-line import/prefer-default-export
 export const parameters = {
-  layout: 'fullscreen',
+  // layout: 'fullscreen',
   viewport: {
     viewports: INITIAL_VIEWPORTS
+  },
+  backgrounds: {
+    default: 'light'
   }
 };

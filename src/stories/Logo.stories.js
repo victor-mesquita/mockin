@@ -1,15 +1,14 @@
-import List from './List';
+import Logo from '@/common/components/Logo';
 
 export default {
-  title: 'App/List',
-  component: List,
-  argTypes: {}
+  title: 'App/Logo',
+  component: Logo
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { List },
-  template: '<List v-bind="$props"/>'
+  components: { Logo },
+  template: '<Logo/>'
 });
 
 export const Default = Template.bind({});

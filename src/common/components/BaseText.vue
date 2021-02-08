@@ -16,15 +16,17 @@ export default {
   components: { Flex },
   props: {
     text: { type: String, required: true },
+    font: { type: String, default: 'normal' },
     bulletColor: { type: String },
-    color: { type: String },
+    color: { type: String, default: '#475569' },
     showBullet: { type: Boolean },
     size: { type: String, default: 'sm' }
   },
   computed: {
     classes() {
       return {
-        [`text-${this.size}`]: true
+        [`text-${this.size}`]: true,
+        [`font-${this.font}`]: true
       };
     },
     styles() {

@@ -1,4 +1,4 @@
-import BaseText from './BaseText';
+import BaseText from '@/common/components/BaseText';
 
 export default {
   title: 'App/BaseText',
