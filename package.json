@@ -41,7 +41,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.14.1",
-    "postcss": "^7.0.35",
+    "postcss": "^8.2.10",
     "sass-loader": "^8.0.0",
     "ssh-deploy-release": "^3.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
